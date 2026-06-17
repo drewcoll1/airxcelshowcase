@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Airxcel Showcase Apparel Order</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <main class="page">
+    <section class="card">
+      <div class="header">
+        <h1>Airxcel Showcase Apparel Order</h1>
+        <p>
+          Each person will receive one mandatory quarter zip and one additional item:
+          either a polo or a button down.
+        </p>
+      </div>
+
+      <div class="notice">
+        <strong>Limit:</strong> 2 items total per person.
+      </div>
+
+      <form 
+        id="airxcelForm"
+        action="PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE"
+        method="POST"
+        target="hidden_iframe"
+      >
+
+        <div class="grid">
+          <div class="field">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" required />
+          </div>
+
+          <div class="field">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="field">
+          <label for="gender">Men's or Women's Options</label>
+          <select id="gender" name="gender" required>
+            <option value="">Select One</option>
+            <option value="Men's">Men's</option>
+            <option value="Women's">Women's</option>
+          </select>
+        </div>
+
+        <hr>
+
+        <h2>Item 1: Required Quarter Zip</h2>
+
+        <div class="field">
+          <label for="quarterZipSize">Quarter Zip Size</label>
+          <select id="quarterZipSize" name="quarterZipSize" required>
+            <option value="">Select Size</option>
+            <option value="XS">XS</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+            <option value="2XL">2XL</option>
+            <option value="3XL">3XL</option>
+            <option value="4XL">4XL</option>
+          </select>
+        </div>
+
+        <hr>
+
+        <h2>Item 2: Choose One</h2>
+
+        <div class="options">
+          <label class="option-card">
+            <input type="radio" name="secondItem" value="Polo" required />
+            <span>Polo</span>
+          </label>
+
+          <label class="option-card">
+            <input type="radio" name="secondItem" value="Button Down" required />
+            <span>Button Down</span>
+          </label>
+        </div>
+
+        <div class="field">
+          <label for="secondItemSize">Second Item Size</label>
+          <select id="secondItemSize" name="secondItemSize" required>
+            <option value="">Select Size</option>
+            <option value="XS">XS</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+            <option value="2XL">2XL</option>
+            <option value="3XL">3XL</option>
+            <option value="4XL">4XL</option>
+          </select>
+        </div>
+
+        <button type="submit" id="submitBtn">Submit Order</button>
+
+        <p id="message"></p>
+      </form>
+
+      <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById("airxcelForm");
+    const message = document.getElementById("message");
+    const submitBtn = document.getElementById("submitBtn");
+
+    form.addEventListener("submit", function () {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Submitting...";
+
+      setTimeout(function () {
+        message.textContent = "Your order has been submitted successfully!";
+        message.className = "success";
+
+        form.reset();
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit Order";
+      }, 1200);
+    });
+  </script>
+
+</body>
+</html>
