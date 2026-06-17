@@ -1,1028 +1,1526 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Airxcel Showcase Apparel Order</title>
-
-  <style>
-    :root {
-      --navy: #07162f;
-      --blue: #155eef;
-      --blue-dark: #0f3fb8;
-      --gray: #64748b;
-      --border: #dde5f0;
-      --green: #16a34a;
-      --green-dark: #087f5b;
-      --orange: #92400e;
-      --shadow: 0 24px 70px rgba(7, 22, 47, 0.18);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Inter, Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(21, 94, 239, 0.18), transparent 32%),
-        linear-gradient(180deg, #f8fbff 0%, #eef3f9 100%);
-      color: var(--navy);
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(255, 255, 255, 0.94);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .header-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 18px 22px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .logo {
-      height: 68px;
-      max-width: 260px;
-      object-fit: contain;
-      display: block;
-    }
-
-    .page {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 36px 22px 70px;
-    }
-
-    .main-card {
-      background: rgba(255,255,255,0.96);
-      border: 1px solid rgba(221, 229, 240, 0.95);
-      border-radius: 34px;
-      padding: 48px 40px 44px;
-      box-shadow: var(--shadow);
-    }
-
-    .top-bar {
-      display: grid;
-      grid-template-columns: 410px 1fr;
-      align-items: center;
-      gap: 58px;
-      padding-bottom: 40px;
-      margin-bottom: 40px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .logo-side {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-    }
-
-    .hero-main-logo {
-      width: 100%;
-      max-width: 410px;
-      height: auto;
-      object-fit: contain;
-      display: block;
-    }
-
-    .progress-side {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      align-items: start;
-      gap: 10px;
-    }
-
-    .progress-side::before {
-      content: "";
-      position: absolute;
-      top: 26px;
-      left: 12.5%;
-      right: 12.5%;
-      height: 4px;
-      background: #dbe4f0;
-      border-radius: 999px;
-      z-index: 1;
-    }
-
-    .progress-fill {
-      position: absolute;
-      top: 26px;
-      left: 12.5%;
-      height: 4px;
-      width: 0%;
-      background: var(--green);
-      border-radius: 999px;
-      z-index: 2;
-      transition: 0.3s ease;
-      max-width: 75%;
-    }
-
-    .progress-step {
-      position: relative;
-      z-index: 3;
-      text-align: center;
-    }
-
-    .circle {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: white;
-      border: 3px solid #dbe4f0;
-      color: #94a3b8;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 10px;
-      transition: 0.25s ease;
-    }
-
-    .circle svg {
-      width: 22px;
-      height: 22px;
-    }
-
-    .progress-step span {
-      display: block;
-      font-size: 13px;
-      font-weight: 900;
-      color: var(--gray);
-    }
-
-    .progress-step.completed .circle {
-      background: var(--green);
-      border-color: var(--green);
-      color: white;
-      box-shadow: 0 10px 22px rgba(22, 163, 74, 0.22);
-    }
-
-    .progress-step.completed span {
-      color: var(--green-dark);
-    }
-
-    .wizard-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 350px;
-      gap: 28px;
-      align-items: start;
-    }
-
-    .wizard-main {
-      min-width: 0;
-    }
-
-    .wizard-panel {
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      padding: 30px;
-      box-shadow: 0 14px 34px rgba(7, 22, 47, 0.08);
-      min-height: 470px;
-    }
-
-    .summary-panel {
-      position: sticky;
-      top: 112px;
-      background: linear-gradient(180deg, #ffffff, #f8fbff);
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      padding: 28px;
-      box-shadow: 0 14px 34px rgba(7, 22, 47, 0.08);
-    }
-
-    .summary-panel h3 {
-      margin: 0 0 18px;
-      font-size: 26px;
-      letter-spacing: -0.03em;
-    }
-
-    .summary-row {
-      padding: 14px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .summary-row:last-child {
-      border-bottom: none;
-    }
-
-    .summary-row span {
-      display: block;
-      color: var(--gray);
-      font-size: 12px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 5px;
-    }
-
-    .summary-row strong {
-      display: block;
-      font-size: 17px;
-      color: var(--navy);
-    }
-
-    .summary-complete {
-      margin-top: 22px;
-      background: #f0fdf4;
-      border: 1px solid rgba(22, 163, 74, 0.35);
-      color: #14532d;
-      border-radius: 18px;
-      padding: 16px;
-      font-weight: 900;
-      line-height: 1.45;
-    }
-
-    .step-screen {
-      display: none;
-      animation: fadeUp 0.28s ease;
-    }
-
-    .step-screen.active {
-      display: block;
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .eyebrow {
-      margin: 0 0 12px;
-      color: var(--blue);
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-
-    .step-heading {
-      margin-bottom: 28px;
-    }
-
-    .step-heading h2 {
-      font-size: 38px;
-      letter-spacing: -0.04em;
-      margin: 0 0 10px;
-    }
-
-    .step-heading p {
-      color: var(--gray);
-      font-size: 16px;
-      line-height: 1.6;
-      margin: 0;
-      max-width: 660px;
-    }
-
-    .category-grid,
-    .choice-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 22px;
-    }
-
-    .category-card,
-    .choice-card {
-      border: 2px solid var(--border);
-      border-radius: 26px;
-      background: linear-gradient(180deg, #ffffff, #f8fbff);
-      padding: 34px;
-      cursor: pointer;
-      text-align: center;
-      transition: 0.22s ease;
-      min-height: 170px;
-    }
-
-    .category-card:hover,
-    .choice-card:hover {
-      border-color: var(--blue);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 45px rgba(21, 94, 239, 0.17);
-    }
-
-    .category-card.selected,
-    .choice-card.selected {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 4px rgba(21, 94, 239, 0.12), 0 18px 40px rgba(21, 94, 239, 0.12);
-    }
-
-    .category-card span,
-    .choice-card span {
-      display: block;
-      font-size: 31px;
-      font-weight: 950;
-      letter-spacing: -0.035em;
-      color: var(--navy);
-      margin-bottom: 10px;
-    }
-
-    .category-card small,
-    .choice-card small {
-      color: var(--gray);
-      font-size: 15px;
-      line-height: 1.45;
-    }
-
-    .product-card {
-      border: 2px solid var(--border);
-      border-radius: 26px;
-      overflow: hidden;
-      background: white;
-      box-shadow: 0 12px 32px rgba(7, 22, 47, 0.08);
-    }
-
-    .product-img {
-      height: 300px;
-      background: #eef3f9;
-    }
-
-    .product-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .product-info {
-      padding: 28px;
-    }
-
-    .product-info h3 {
-      font-size: 30px;
-      margin: 10px 0 8px;
-      letter-spacing: -0.03em;
-    }
-
-    .product-info p {
-      color: var(--gray);
-      line-height: 1.55;
-      margin: 0;
-    }
-
-    .pill {
-      display: inline-block;
-      background: #e8fff6;
-      border: 1px solid #b8f2dc;
-      color: var(--green-dark);
-      border-radius: 999px;
-      padding: 7px 12px;
-      font-size: 12px;
-      font-weight: 950;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .field {
-      margin-top: 18px;
-    }
-
-    label {
-      display: block;
-      font-weight: 900;
-      margin-bottom: 8px;
-      color: #243247;
-    }
-
-    input,
-    select {
-      width: 100%;
-      padding: 15px;
-      border: 1px solid #cbd5e1;
-      border-radius: 14px;
-      font-size: 16px;
-      background: white;
-      color: var(--navy);
-    }
-
-    input:focus,
-    select:focus {
-      outline: none;
-      border-color: var(--blue);
-      box-shadow: 0 0 0 4px rgba(21, 94, 239, 0.12);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-    }
-
-    .button-row {
-      display: flex;
-      gap: 14px;
-      margin-top: 26px;
-    }
-
-    .back-btn {
-      border: 1px solid #cbd5e1;
-      background: white;
-      color: var(--navy);
-      border-radius: 999px;
-      padding: 13px 18px;
-      font-weight: 900;
-      cursor: pointer;
-    }
-
-    .next-btn {
-      border: none;
-      background: var(--navy);
-      color: white;
-      border-radius: 999px;
-      padding: 13px 20px;
-      font-weight: 900;
-      cursor: pointer;
-    }
-
-    .submit-btn {
-      width: 100%;
-      border: none;
-      border-radius: 18px;
-      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
-      color: white;
-      padding: 18px;
-      font-size: 18px;
-      font-weight: 950;
-      cursor: pointer;
-      transition: 0.2s ease;
-      box-shadow: 0 16px 35px rgba(21, 94, 239, 0.28);
-      margin-top: 24px;
-    }
-
-    .submit-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 20px 42px rgba(21, 94, 239, 0.34);
-    }
-
-    .submit-btn:disabled {
-      background: #94a3b8;
-      box-shadow: none;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .review-box {
-      background: #fff8ed;
-      border: 1px solid #ffd8a8;
-      color: var(--orange);
-      padding: 20px;
-      border-radius: 18px;
-      line-height: 1.65;
-      margin-top: 24px;
-    }
-
-    #message {
-      text-align: center;
-      font-weight: 950;
-      margin-top: 18px;
-    }
-
-    .success {
-      color: var(--green-dark);
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    @media (max-width: 1000px) {
-      .top-bar {
-        grid-template-columns: 1fr;
-        gap: 32px;
-      }
-
-      .logo-side {
-        justify-content: center;
-      }
-
-      .hero-main-logo {
-        max-width: 420px;
-      }
-
-      .wizard-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .summary-panel {
-        position: static;
-      }
-    }
-
-    @media (max-width: 680px) {
-      .page {
-        padding: 22px 14px 46px;
-      }
-
-      .logo {
-        height: 54px;
-      }
-
-      .main-card {
-        padding: 34px 22px 28px;
-        border-radius: 24px;
-      }
-
-      .top-bar {
-        padding-bottom: 30px;
-        margin-bottom: 28px;
-      }
-
-      .progress-side {
-        gap: 4px;
-      }
-
-      .circle {
-        width: 44px;
-        height: 44px;
-      }
-
-      .progress-side::before,
-      .progress-fill {
-        top: 21px;
-      }
-
-      .progress-step span {
-        font-size: 11px;
-      }
-
-      .category-grid,
-      .choice-grid,
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .wizard-panel,
-      .summary-panel {
-        padding: 22px;
-        border-radius: 22px;
-      }
-
-      .step-heading h2 {
-        font-size: 31px;
-      }
-
-      .product-img {
-        height: 240px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Airxcel Showcase Apparel Order</title>
+
+    <style>
+        :root {
+            --navy: #07162f;
+            --blue: #294538;
+            --blue-dark: #1f352b;
+            --gray: #64748b;
+            --border: #dde5f0;
+            --green: #294538;
+            --green-dark: #294538;
+            --shadow: 0 24px 70px rgba(41, 69, 56, 0.16);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(41, 69, 56, 0.10), transparent 35%),
+                radial-gradient(circle at bottom right, rgba(148, 163, 184, 0.18), transparent 32%),
+                linear-gradient(180deg, #f3f4f6 0%, #f8fafc 52%, #eceff3 100%);
+            color: var(--navy);
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 36px 22px 70px;
+        }
+
+        .main-card {
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid rgba(221, 229, 240, 0.95);
+            border-radius: 34px;
+            padding: 48px 40px 44px;
+            box-shadow: var(--shadow);
+        }
+
+        .top-area {
+            padding-bottom: 40px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo-side {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 34px;
+        }
+
+        .hero-main-logo {
+            width: 100%;
+            max-width: 430px;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .progress-side {
+            max-width: 760px;
+            margin: 0 auto;
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            align-items: start;
+            gap: 10px;
+        }
+
+        .progress-side::before {
+            content: "";
+            position: absolute;
+            top: 26px;
+            left: 12.5%;
+            right: 12.5%;
+            height: 4px;
+            background: #dbe4f0;
+            border-radius: 999px;
+            z-index: 1;
+        }
+
+        .progress-fill {
+            position: absolute;
+            top: 26px;
+            left: 12.5%;
+            height: 4px;
+            width: 0%;
+            background: var(--green);
+            border-radius: 999px;
+            z-index: 2;
+            transition: 0.3s ease;
+            max-width: 75%;
+        }
+
+        .progress-step {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .circle {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #dbe4f0;
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            transition: 0.25s ease;
+        }
+
+        .circle svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .progress-step span {
+            display: block;
+            font-size: 13px;
+            font-weight: 900;
+            color: var(--gray);
+        }
+
+        .progress-step:hover .circle {
+            border-color: var(--green);
+            color: var(--green);
+            transform: translateY(-2px);
+        }
+
+        .progress-step.completed .circle {
+            background: var(--green);
+            border-color: var(--green);
+            color: white;
+            box-shadow: 0 10px 22px rgba(41, 69, 56, 0.25);
+        }
+
+        .progress-step.completed span {
+            color: var(--green-dark);
+        }
+
+        .wizard-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 360px;
+            gap: 28px;
+            align-items: stretch;
+        }
+
+        .wizard-main {
+            min-width: 0;
+            display: flex;
+        }
+
+        .wizard-panel {
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 30px;
+            box-shadow: 0 14px 34px rgba(7, 22, 47, 0.08);
+            min-height: 700px;
+        }
+
+        .summary-panel {
+            position: sticky;
+            top: 28px;
+            min-height: 700px;
+            background: linear-gradient(180deg, #ffffff, #f8fbff);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 28px;
+            box-shadow: 0 14px 34px rgba(7, 22, 47, 0.08);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .summary-panel h3 {
+            margin: 0 0 24px;
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .summary-row {
+            padding: 14px 64px 14px 0;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .summary-row::after {
+            content: "›";
+            position: absolute;
+            right: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 30px;
+            font-weight: 900;
+            transition: 0.2s ease;
+        }
+
+        .summary-check {
+            position: absolute;
+            right: 34px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--green);
+            color: #fff;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .summary-check svg {
+            width: 13px;
+            height: 13px;
+        }
+
+        .summary-row.done .summary-check {
+            display: flex;
+        }
+
+        .summary-row:hover strong,
+        .summary-row:hover::after {
+            color: var(--green);
+        }
+
+        .summary-row span {
+            display: block;
+            color: var(--gray);
+            font-size: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 5px;
+        }
+
+        .summary-row strong {
+            display: block;
+            font-size: 17px;
+            color: var(--navy);
+            transition: 0.2s ease;
+            min-height: 20px;
+        }
+
+        .summary-image-row {
+            display: grid;
+            grid-template-columns: 64px 1fr;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .summary-thumb {
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 7px;
+        }
+
+        .hidden-thumb {
+            display: none;
+        }
+
+        .summary-thumb.show {
+            display: block;
+        }
+
+        .summary-submit {
+            margin-top: auto;
+            padding-top: 24px;
+        }
+
+        .step-screen {
+            display: none;
+            animation: fadeUp 0.28s ease;
+        }
+
+        .step-screen.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-top {
+            display: flex;
+            align-items: center;
+            margin-bottom: 18px;
+            min-height: 42px;
+        }
+
+        .step-back {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: #fff;
+            color: var(--navy);
+            font-size: 24px;
+            font-weight: 900;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s ease;
+        }
+
+        .step-back:hover {
+            border-color: var(--green);
+            color: var(--green);
+            transform: translateX(-2px);
+        }
+
+        .eyebrow {
+            margin: 0 0 12px;
+            color: var(--green);
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .step-heading {
+            margin-bottom: 28px;
+        }
+
+        .step-heading h2 {
+            font-size: 38px;
+            letter-spacing: -0.04em;
+            margin: 0 0 10px;
+        }
+
+        .step-heading p {
+            color: var(--gray);
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 0;
+            max-width: 660px;
+        }
+
+        .category-grid,
+        .choice-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+        }
+
+        .category-card,
+        .choice-card {
+            border: 2px solid var(--border);
+            border-radius: 26px;
+            background: linear-gradient(180deg, #ffffff, #f8fbff);
+            cursor: pointer;
+            text-align: center;
+            transition: 0.22s ease;
+            overflow: hidden;
+            padding: 0;
+        }
+
+        .category-card:hover,
+        .choice-card:hover {
+            border-color: var(--green);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 45px rgba(41, 69, 56, 0.22);
+        }
+
+        .category-card.selected,
+        .choice-card.selected {
+            border-color: var(--green);
+            box-shadow: 0 0 0 4px rgba(41, 69, 56, 0.14), 0 18px 40px rgba(41, 69, 56, 0.16);
+        }
+
+        .category-img,
+        .choice-img,
+        .product-img {
+            width: 100%;
+            height: 300px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .category-img img,
+        .choice-img img,
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .category-info,
+        .choice-info {
+            padding: 28px 24px 30px;
+        }
+
+        .choice-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .choice-img {
+            height: 300px;
+            flex: 0 0 300px;
+        }
+
+        .choice-info {
+            min-height: 138px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .choice-card span {
+            min-height: 74px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.12;
+        }
+
+        .category-card span,
+        .choice-card span {
+            font-size: 31px;
+            font-weight: 950;
+            letter-spacing: -0.035em;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .category-card small,
+        .choice-card small {
+            color: var(--gray);
+            font-size: 15px;
+            line-height: 1.45;
+        }
+
+        .product-card {
+            border: 2px solid var(--border);
+            border-radius: 26px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 12px 32px rgba(7, 22, 47, 0.08);
+        }
+
+        .product-info {
+            padding: 28px;
+        }
+
+        .product-info h3 {
+            font-size: 30px;
+            margin: 0 0 8px;
+            letter-spacing: -0.03em;
+        }
+
+        .product-info p {
+            color: var(--gray);
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        .field {
+            margin-top: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: 900;
+            margin-bottom: 8px;
+            color: #243247;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 14px;
+            font-size: 16px;
+            background: white;
+            color: var(--navy);
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--green);
+            box-shadow: 0 0 0 4px rgba(41, 69, 56, 0.14);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            border: none;
+            border-radius: 18px;
+            background: linear-gradient(135deg, var(--green), var(--blue-dark));
+            color: white;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: 950;
+            cursor: pointer;
+            transition: 0.2s ease;
+            box-shadow: 0 16px 35px rgba(41, 69, 56, 0.28);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 42px rgba(41, 69, 56, 0.34);
+        }
+
+        .submit-btn:disabled,
+        .submit-btn.locked {
+            background: #cbd5e1;
+            color: #64748b;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        .submit-btn:disabled:hover,
+        .submit-btn.locked:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        #message {
+            text-align: center;
+            font-weight: 950;
+            margin-top: 18px;
+        }
+
+        .success {
+            color: var(--green-dark);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(7, 22, 47, 0.55);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            z-index: 100;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .success-modal {
+            background: white;
+            border-radius: 30px;
+            padding: 42px;
+            width: 100%;
+            max-width: 520px;
+            text-align: center;
+            box-shadow: 0 30px 90px rgba(7, 22, 47, 0.32);
+            animation: modalPop 0.25s ease;
+        }
+
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .success-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: var(--green);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .success-icon svg {
+            width: 34px;
+            height: 34px;
+        }
+
+        .success-modal h2 {
+            font-size: 34px;
+            letter-spacing: -0.04em;
+            margin: 0 0 10px;
+        }
+
+        .success-modal p {
+            color: var(--gray);
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 0 0 24px;
+        }
+
+        .modal-summary {
+            background: #f8fbff;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 18px;
+            margin: 24px 0;
+            text-align: left;
+        }
+
+        .modal-person {
+            padding-bottom: 16px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-person span,
+        .modal-item span {
+            display: block;
+            color: var(--gray);
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 5px;
+        }
+
+        .modal-person strong {
+            font-size: 20px;
+            color: var(--navy);
+        }
+
+        .modal-item {
+            display: grid;
+            grid-template-columns: 76px 1fr;
+            gap: 14px;
+            align-items: center;
+            padding: 12px 0;
+        }
+
+        .modal-item+.modal-item {
+            border-top: 1px solid var(--border);
+        }
+
+        .modal-item img {
+            width: 76px;
+            height: 76px;
+            object-fit: contain;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 8px;
+        }
+
+        .modal-item strong {
+            display: block;
+            font-size: 17px;
+            color: var(--navy);
+            margin-bottom: 4px;
+        }
+
+        .modal-item small {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .modal-item small b {
+            color: var(--navy);
+        }
+
+        .again-btn {
+            border: none;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--green), var(--blue-dark));
+            color: white;
+            padding: 15px 24px;
+            font-size: 16px;
+            font-weight: 950;
+            cursor: pointer;
+            box-shadow: 0 14px 30px rgba(41, 69, 56, 0.24);
+        }
+
+        @media (max-width: 1000px) {
+            .wizard-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-panel {
+                position: static;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .page {
+                padding: 22px 14px 46px;
+            }
+
+            .main-card {
+                padding: 34px 22px 28px;
+                border-radius: 24px;
+            }
+
+            .top-area {
+                padding-bottom: 30px;
+                margin-bottom: 28px;
+            }
+
+            .hero-main-logo {
+                max-width: 350px;
+            }
+
+            .progress-side {
+                gap: 4px;
+            }
+
+            .circle {
+                width: 44px;
+                height: 44px;
+            }
+
+            .progress-side::before,
+            .progress-fill {
+                top: 21px;
+            }
+
+            .progress-step span {
+                font-size: 11px;
+            }
+
+            .category-grid,
+            .choice-grid,
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .wizard-panel,
+            .summary-panel {
+                padding: 22px;
+                border-radius: 22px;
+                min-height: auto;
+            }
+
+            .step-heading h2 {
+                font-size: 31px;
+            }
+
+            .category-img,
+            .choice-img,
+            .product-img {
+                height: 240px;
+                padding: 14px;
+            }
+
+            .success-modal {
+                padding: 32px 24px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-  <header class="site-header">
-    <div class="header-inner">
-      <img src="./logo2.png" alt="Airxcel Logo" class="logo">
-    </div>
-  </header>
+    <main class="page">
+        <section class="main-card">
 
-  <main class="page">
-    <section class="main-card">
-
-      <div class="top-bar">
-        <div class="logo-side">
-          <img src="./logo.jpg" alt="Airxcel Logo" class="hero-main-logo">
-        </div>
-
-        <div class="progress-side">
-          <div class="progress-fill" id="progressFill"></div>
-
-          <div class="progress-step" id="circle1">
-            <div class="circle">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <span>Category</span>
-          </div>
-
-          <div class="progress-step" id="circle2">
-            <div class="circle">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <span>Quarter Zip</span>
-          </div>
-
-          <div class="progress-step" id="circle3">
-            <div class="circle">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <span>Second Item</span>
-          </div>
-
-          <div class="progress-step" id="circle4">
-            <div class="circle">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <span>Submit</span>
-          </div>
-        </div>
-      </div>
-
-      <form
-        id="airxcelForm"
-        action="PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE"
-        method="POST"
-        target="hidden_iframe"
-      >
-
-        <input type="hidden" id="gender" name="gender" />
-        <input type="hidden" id="secondItem" name="secondItem" />
-
-        <div class="wizard-layout">
-
-          <div class="wizard-main">
-            <div class="wizard-panel">
-
-              <div class="step-screen active" id="screen1">
-                <div class="step-heading">
-                  <p class="eyebrow">Step 1</p>
-                  <h2>Select Apparel Category</h2>
-                  <p>Choose either Men’s Options or Women’s Options to begin your apparel order.</p>
+            <div class="top-area">
+                <div class="logo-side">
+                    <img src="/logo.webp" alt="Airxcel Logo" class="hero-main-logo">
                 </div>
 
-                <div class="category-grid">
-                  <button type="button" class="category-card" data-gender="Men's">
-                    <span>Men’s Options</span>
-                    <small>Continue to men’s quarter zip, polo, and button down options.</small>
-                  </button>
+                <div class="progress-side">
+                    <div class="progress-fill" id="progressFill"></div>
 
-                  <button type="button" class="category-card" data-gender="Women's">
-                    <span>Women’s Options</span>
-                    <small>Continue to women’s quarter zip, polo, and button down options.</small>
-                  </button>
-                </div>
-              </div>
-
-              <div class="step-screen" id="screen2">
-                <div class="step-heading">
-                  <p class="eyebrow">Step 2</p>
-                  <h2>Required Quarter Zip</h2>
-                  <p>Every employee receives one required quarter zip. Please select your size.</p>
-                </div>
-
-                <div class="product-card">
-                  <div class="product-img">
-                    <img src="images/quarter-zip.jpg" alt="Quarter Zip">
-                  </div>
-
-                  <div class="product-info">
-                    <span class="pill">Required Item</span>
-                    <h3>Quarter Zip</h3>
-                    <p>This is included with every apparel order.</p>
-
-                    <div class="field">
-                      <label for="quarterZipSize">Quarter Zip Size</label>
-                      <select id="quarterZipSize" name="quarterZipSize" required>
-                        <option value="">Select Size</option>
-                        <option>XS</option>
-                        <option>S</option>
-                        <option>M</option>
-                        <option>L</option>
-                        <option>XL</option>
-                        <option>2XL</option>
-                        <option>3XL</option>
-                        <option>4XL</option>
-                      </select>
+                    <div class="progress-step" id="circle1" data-go="1">
+                        <div class="circle">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <span>Category</span>
                     </div>
-                  </div>
+
+                    <div class="progress-step" id="circle2" data-go="2">
+                        <div class="circle">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <span>Quarter Zip</span>
+                    </div>
+
+                    <div class="progress-step" id="circle3" data-go="3">
+                        <div class="circle">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <span>Second Item</span>
+                    </div>
+
+                    <div class="progress-step" id="circle4" data-go="4">
+                        <div class="circle">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <span>Submit</span>
+                    </div>
                 </div>
-
-                <div class="button-row">
-                  <button type="button" class="back-btn" data-go="1">Back</button>
-                </div>
-              </div>
-
-              <div class="step-screen" id="screen3">
-                <div class="step-heading">
-                  <p class="eyebrow">Step 3</p>
-                  <h2>Choose Your Second Item</h2>
-                  <p>Choose one additional apparel item: either a polo or a button down.</p>
-                </div>
-
-                <div class="choice-grid">
-                  <button type="button" class="choice-card" data-item="Polo">
-                    <span>Polo</span>
-                    <small>Select the polo as your one additional apparel item.</small>
-                  </button>
-
-                  <button type="button" class="choice-card" data-item="Button Down">
-                    <span>Button Down</span>
-                    <small>Select the button down as your one additional apparel item.</small>
-                  </button>
-                </div>
-
-                <div class="field">
-                  <label for="secondItemSize">Second Item Size</label>
-                  <select id="secondItemSize" name="secondItemSize" required>
-                    <option value="">Select Size</option>
-                    <option>XS</option>
-                    <option>S</option>
-                    <option>M</option>
-                    <option>L</option>
-                    <option>XL</option>
-                    <option>2XL</option>
-                    <option>3XL</option>
-                    <option>4XL</option>
-                  </select>
-                </div>
-
-                <div class="button-row">
-                  <button type="button" class="back-btn" data-go="2">Back</button>
-                </div>
-              </div>
-
-              <div class="step-screen" id="screen4">
-                <div class="step-heading">
-                  <p class="eyebrow">Step 4</p>
-                  <h2>Submit Your Order</h2>
-                  <p>Add your name and review your selections before submitting.</p>
-                </div>
-
-                <div class="grid">
-                  <div class="field">
-                    <label for="firstName">First Name</label>
-                    <input type="text" id="firstName" name="firstName" required>
-                  </div>
-
-                  <div class="field">
-                    <label for="lastName">Last Name</label>
-                    <input type="text" id="lastName" name="lastName" required>
-                  </div>
-                </div>
-
-                <div class="review-box">
-                  <strong>Final Review</strong><br>
-                  Category: <span id="reviewGender">Not selected</span><br>
-                  Quarter Zip: Size <span id="reviewQuarterZip">Not selected</span><br>
-                  Second Item: <span id="reviewSecondItem">Not selected</span> — Size <span id="reviewSecondSize">Not selected</span><br>
-                  Employee: <span id="reviewName">Not entered</span>
-                </div>
-
-                <button type="submit" id="submitBtn" class="submit-btn">
-                  Submit Apparel Order
-                </button>
-
-                <button type="button" class="back-btn" data-go="3" style="margin-top:14px;">
-                  Back
-                </button>
-
-                <p id="message"></p>
-              </div>
-
-            </div>
-          </div>
-
-          <aside class="summary-panel">
-            <h3>Order Summary</h3>
-
-            <div class="summary-row">
-              <span>Category</span>
-              <strong id="summaryGender">Not selected</strong>
             </div>
 
-            <div class="summary-row">
-              <span>Required Item</span>
-              <strong>Quarter Zip</strong>
+            <form id="airxcelForm"
+                action="https://script.google.com/macros/s/AKfycbyTVsY48Sz6qy8LkOWckG-yjxKoQqI1DQm60yu56YDwbcatgICUn7W7UNx40OQVW1k2/exec"
+                method="POST" target="hidden_iframe">
+
+                <input type="hidden" id="gender" name="gender" />
+                <input type="hidden" id="secondItem" name="secondItem" />
+                <input type="hidden" id="quarterZipItemName" name="quarterZipItemName" />
+                <input type="hidden" id="secondItemName" name="secondItemName" />
+
+                <div class="wizard-layout">
+
+                    <div class="wizard-main">
+                        <div class="wizard-panel">
+
+                            <div class="step-screen active" id="screen1">
+                                <div class="step-heading">
+                                    <p class="eyebrow">Step 1</p>
+                                    <h2>Select Apparel Category</h2>
+                                    <p>Choose either Men’s Options or Women’s Options to begin your apparel order.</p>
+                                </div>
+
+                                <div class="category-grid">
+                                    <button type="button" class="category-card" data-gender="Men's">
+                                        <div class="category-img">
+                                            <img src="/4.png" alt="Men's Apparel Options">
+                                        </div>
+                                        <div class="category-info">
+                                            <span>Men’s Options</span>
+                                            <small>Continue to men’s quarter zip, polo, and long sleeve options.</small>
+                                        </div>
+                                    </button>
+
+                                    <button type="button" class="category-card" data-gender="Women's">
+                                        <div class="category-img">
+                                            <img src="/1.png" alt="Women's Apparel Options">
+                                        </div>
+                                        <div class="category-info">
+                                            <span>Women’s Options</span>
+                                            <small>Continue to women’s quarter zip, polo, and long sleeve
+                                                options.</small>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="step-screen" id="screen2">
+                                <div class="step-top">
+                                    <button type="button" class="step-back" data-go="1">‹</button>
+                                </div>
+
+                                <div class="step-heading">
+                                    <p class="eyebrow">Step 2</p>
+                                    <h2>Quarter Zip</h2>
+                                    <p>Every employee receives one quarter zip. Please select your size.</p>
+                                </div>
+
+                                <div class="product-card">
+                                    <div class="product-img">
+                                        <img id="quarterZipImage" src="./4.png" alt="Quarter Zip">
+                                    </div>
+
+                                    <div class="product-info">
+                                        <h3 id="quarterZipTitle">Men’s Quarter Zip</h3>
+                                        <p></p>
+
+                                        <div class="field">
+                                            <label for="quarterZipSize">Quarter Zip Size</label>
+                                            <select id="quarterZipSize" name="quarterZipSize" required>
+                                                <option value="">Select Size</option>
+                                                <option>XS</option>
+                                                <option>S</option>
+                                                <option>M</option>
+                                                <option>L</option>
+                                                <option>XL</option>
+                                                <option>2XL</option>
+                                                <option>3XL</option>
+                                                <option>4XL</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="step-screen" id="screen3">
+                                <div class="step-top">
+                                    <button type="button" class="step-back" data-go="2">‹</button>
+                                </div>
+
+                                <div class="step-heading">
+                                    <p class="eyebrow">Step 3</p>
+                                    <h2>Choose Your Second Item</h2>
+                                    <p>Choose one additional apparel item: either a polo or a long sleeve.</p>
+                                </div>
+
+                                <div class="choice-grid">
+                                    <button type="button" class="choice-card" data-item="Polo">
+                                        <div class="choice-img">
+                                            <img id="poloImage" src="./5.png" alt="Polo">
+                                        </div>
+                                        <div class="choice-info">
+                                            <span id="poloTitle">Men’s Polo</span>
+                                            <small>Select the polo as your one additional apparel item.</small>
+                                        </div>
+                                    </button>
+
+                                    <button type="button" class="choice-card" data-item="Long Sleeve">
+                                        <div class="choice-img">
+                                            <img id="longSleeveImage" src="./6.png" alt="Long Sleeve">
+                                        </div>
+                                        <div class="choice-info">
+                                            <span id="longSleeveTitle">Men’s Long Sleeve</span>
+                                            <small>Select the long sleeve as your one additional apparel item.</small>
+                                        </div>
+                                    </button>
+                                </div>
+
+                                <div class="field">
+                                    <label for="secondItemSize">Second Item Size</label>
+                                    <select id="secondItemSize" name="secondItemSize" required>
+                                        <option value="">Select Size</option>
+                                        <option>XS</option>
+                                        <option>S</option>
+                                        <option>M</option>
+                                        <option>L</option>
+                                        <option>XL</option>
+                                        <option>2XL</option>
+                                        <option>3XL</option>
+                                        <option>4XL</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="step-screen" id="screen4">
+                                <div class="step-top">
+                                    <button type="button" class="step-back" data-go="3">‹</button>
+                                </div>
+
+                                <div class="step-heading">
+                                    <p class="eyebrow">Step 4</p>
+                                    <h2>Submit Your Order</h2>
+                                    <p>Add your name before submitting.</p>
+                                </div>
+
+                                <div class="grid">
+                                    <div class="field">
+                                        <label for="firstName">First Name</label>
+                                        <input type="text" id="firstName" name="firstName" required>
+                                    </div>
+
+                                    <div class="field">
+                                        <label for="lastName">Last Name</label>
+                                        <input type="text" id="lastName" name="lastName" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <aside class="summary-panel">
+                        <h3>Order Summary</h3>
+
+                        <div class="summary-row" data-go="1" id="summaryRowCategory">
+                            <span>Category</span>
+                            <strong id="summaryGender"></strong>
+                            <div class="summary-check">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="summary-row" data-go="2" id="summaryRowQuarterZipItem">
+                            <span>Quarter Zip</span>
+                            <div class="summary-image-row">
+                                <img id="summaryQuarterZipImage" class="summary-thumb hidden-thumb" src=""
+                                    alt="Quarter Zip">
+                                <strong id="summaryQuarterZipItem"></strong>
+                            </div>
+                            <div class="summary-check">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="summary-row" data-go="2" id="summaryRowQuarterZipSize">
+                            <span>Quarter Zip Size</span>
+                            <strong id="summaryQuarterZip"></strong>
+                            <div class="summary-check">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="summary-row" data-go="3" id="summaryRowSecondItem">
+                            <span>Second Item</span>
+                            <div class="summary-image-row">
+                                <img id="summarySecondItemImage" class="summary-thumb hidden-thumb" src=""
+                                    alt="Second Item">
+                                <strong id="summarySecondItem"></strong>
+                            </div>
+                            <div class="summary-check">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="summary-row" data-go="3" id="summaryRowSecondSize">
+                            <span>Second Item Size</span>
+                            <strong id="summarySecondSize"></strong>
+                            <div class="summary-check">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="summary-row" data-go="4" id="summaryRowName">
+                            <span>Employee</span>
+                            <strong id="summaryName"></strong>
+                            <div class="summary-check">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="summary-submit">
+                            <button type="submit" id="submitBtn" class="submit-btn locked" disabled>
+                                Complete Selections First
+                            </button>
+                            <p id="message"></p>
+                        </div>
+                    </aside>
+
+                </div>
+            </form>
+
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+        </section>
+    </main>
+
+    <div class="modal-overlay" id="successModal">
+        <div class="success-modal">
+            <div class="success-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
             </div>
 
-            <div class="summary-row">
-              <span>Quarter Zip Size</span>
-              <strong id="summaryQuarterZip">Not selected</strong>
+            <h2>Thank you!</h2>
+            <p>Your order has been submitted.</p>
+
+            <div class="modal-summary">
+                <div class="modal-person">
+                    <span>Submitted For</span>
+                    <strong id="modalName"></strong>
+                </div>
+
+                <div class="modal-item">
+                    <img id="modalQuarterZipImage" src="" alt="Quarter Zip">
+                    <div>
+                        <span>Quarter Zip</span>
+                        <strong id="modalQuarterZipName"></strong>
+                        <small>Size: <b id="modalQuarterZipSize"></b></small>
+                    </div>
+                </div>
+
+                <div class="modal-item">
+                    <img id="modalSecondItemImage" src="" alt="Second Item">
+                    <div>
+                        <span>Second Item</span>
+                        <strong id="modalSecondItemName"></strong>
+                        <small>Size: <b id="modalSecondItemSize"></b></small>
+                    </div>
+                </div>
             </div>
 
-            <div class="summary-row">
-              <span>Second Item</span>
-              <strong id="summarySecondItem">Not selected</strong>
-            </div>
-
-            <div class="summary-row">
-              <span>Second Item Size</span>
-              <strong id="summarySecondSize">Not selected</strong>
-            </div>
-
-            <div class="summary-row">
-              <span>Employee</span>
-              <strong id="summaryName">Not entered</strong>
-            </div>
-
-            <div class="summary-complete" id="summaryStatus">
-              Start by selecting an apparel category.
-            </div>
-          </aside>
-
+            <button type="button" class="again-btn" id="doAgainBtn">
+                Start from the beginning
+            </button>
         </div>
-      </form>
+    </div>
 
-      <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+    <script>
+        const form = document.getElementById("airxcelForm");
 
-    </section>
-  </main>
+        const genderInput = document.getElementById("gender");
+        const secondItemInput = document.getElementById("secondItem");
+        const quarterZipItemNameInput = document.getElementById("quarterZipItemName");
+        const secondItemNameInput = document.getElementById("secondItemName");
 
-  <script>
-    const form = document.getElementById("airxcelForm");
+        const firstName = document.getElementById("firstName");
+        const lastName = document.getElementById("lastName");
+        const quarterZipSize = document.getElementById("quarterZipSize");
+        const secondItemSize = document.getElementById("secondItemSize");
 
-    const genderInput = document.getElementById("gender");
-    const secondItemInput = document.getElementById("secondItem");
+        const circle1 = document.getElementById("circle1");
+        const circle2 = document.getElementById("circle2");
+        const circle3 = document.getElementById("circle3");
+        const circle4 = document.getElementById("circle4");
+        const progressFill = document.getElementById("progressFill");
 
-    const firstName = document.getElementById("firstName");
-    const lastName = document.getElementById("lastName");
-    const quarterZipSize = document.getElementById("quarterZipSize");
-    const secondItemSize = document.getElementById("secondItemSize");
+        const message = document.getElementById("message");
+        const submitBtn = document.getElementById("submitBtn");
 
-    const circle1 = document.getElementById("circle1");
-    const circle2 = document.getElementById("circle2");
-    const circle3 = document.getElementById("circle3");
-    const circle4 = document.getElementById("circle4");
-    const progressFill = document.getElementById("progressFill");
+        const summaryGender = document.getElementById("summaryGender");
+        const summaryQuarterZipItem = document.getElementById("summaryQuarterZipItem");
+        const summaryQuarterZip = document.getElementById("summaryQuarterZip");
+        const summarySecondItem = document.getElementById("summarySecondItem");
+        const summarySecondSize = document.getElementById("summarySecondSize");
+        const summaryName = document.getElementById("summaryName");
+        const summaryQuarterZipImage = document.getElementById("summaryQuarterZipImage");
+        const summarySecondItemImage = document.getElementById("summarySecondItemImage");
 
-    const message = document.getElementById("message");
-    const submitBtn = document.getElementById("submitBtn");
+        const summaryRowCategory = document.getElementById("summaryRowCategory");
+        const summaryRowQuarterZipItem = document.getElementById("summaryRowQuarterZipItem");
+        const summaryRowQuarterZipSize = document.getElementById("summaryRowQuarterZipSize");
+        const summaryRowSecondItem = document.getElementById("summaryRowSecondItem");
+        const summaryRowSecondSize = document.getElementById("summaryRowSecondSize");
+        const summaryRowName = document.getElementById("summaryRowName");
 
-    const summaryGender = document.getElementById("summaryGender");
-    const summaryQuarterZip = document.getElementById("summaryQuarterZip");
-    const summarySecondItem = document.getElementById("summarySecondItem");
-    const summarySecondSize = document.getElementById("summarySecondSize");
-    const summaryName = document.getElementById("summaryName");
-    const summaryStatus = document.getElementById("summaryStatus");
+        const quarterZipImage = document.getElementById("quarterZipImage");
+        const quarterZipTitle = document.getElementById("quarterZipTitle");
+        const poloImage = document.getElementById("poloImage");
+        const poloTitle = document.getElementById("poloTitle");
+        const longSleeveImage = document.getElementById("longSleeveImage");
+        const longSleeveTitle = document.getElementById("longSleeveTitle");
 
-    const reviewGender = document.getElementById("reviewGender");
-    const reviewQuarterZip = document.getElementById("reviewQuarterZip");
-    const reviewSecondItem = document.getElementById("reviewSecondItem");
-    const reviewSecondSize = document.getElementById("reviewSecondSize");
-    const reviewName = document.getElementById("reviewName");
+        const successModal = document.getElementById("successModal");
+        const doAgainBtn = document.getElementById("doAgainBtn");
 
-    let currentStep = 1;
+        const modalName = document.getElementById("modalName");
+        const modalQuarterZipImage = document.getElementById("modalQuarterZipImage");
+        const modalQuarterZipName = document.getElementById("modalQuarterZipName");
+        const modalQuarterZipSize = document.getElementById("modalQuarterZipSize");
+        const modalSecondItemImage = document.getElementById("modalSecondItemImage");
+        const modalSecondItemName = document.getElementById("modalSecondItemName");
+        const modalSecondItemSize = document.getElementById("modalSecondItemSize");
 
-    function showStep(stepNumber) {
-      currentStep = stepNumber;
+        let submittedComplete = false;
 
-      document.querySelectorAll(".step-screen").forEach(screen => {
-        screen.classList.remove("active");
-      });
+        const apparelImages = {
+            "Men's": {
+                quarterZip: "./4.png",
+                polo: "./5.png",
+                longSleeve: "./6.png",
+                quarterZipTitle: "Men's Quarter Zip",
+                poloTitle: "Men's Polo",
+                longSleeveTitle: "Men's Long Sleeve"
+            },
+            "Women's": {
+                quarterZip: "./1.png",
+                polo: "./2.png",
+                longSleeve: "./3.png",
+                quarterZipTitle: "Women's Quarter Zip",
+                poloTitle: "Women's Polo",
+                longSleeveTitle: "Women's Long Sleeve"
+            }
+        };
 
-      document.getElementById(`screen${stepNumber}`).classList.add("active");
+        function applyGenderImages(gender) {
+            const selected = apparelImages[gender];
+            if (!selected) return;
 
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+            quarterZipImage.src = selected.quarterZip;
+            quarterZipTitle.textContent = selected.quarterZipTitle;
 
-      updateProgress();
-    }
+            poloImage.src = selected.polo;
+            poloTitle.textContent = selected.poloTitle;
 
-    function updateProgress() {
-      const fullName = `${firstName.value.trim()} ${lastName.value.trim()}`.trim();
+            longSleeveImage.src = selected.longSleeve;
+            longSleeveTitle.textContent = selected.longSleeveTitle;
 
-      const completed1 = !!genderInput.value;
-      const completed2 = !!quarterZipSize.value;
-      const completed3 = !!secondItemInput.value && !!secondItemSize.value;
-      const completed4 = !!firstName.value.trim() && !!lastName.value.trim();
+            summaryQuarterZipImage.src = selected.quarterZip;
+            summaryQuarterZipImage.classList.add("show");
+            summaryQuarterZipImage.classList.remove("hidden-thumb");
+            summaryQuarterZipItem.textContent = selected.quarterZipTitle;
 
-      summaryGender.textContent = genderInput.value || "Not selected";
-      summaryQuarterZip.textContent = quarterZipSize.value || "Not selected";
-      summarySecondItem.textContent = secondItemInput.value || "Not selected";
-      summarySecondSize.textContent = secondItemSize.value || "Not selected";
-      summaryName.textContent = fullName || "Not entered";
+            quarterZipItemNameInput.value = selected.quarterZipTitle;
+            secondItemNameInput.value = "";
 
-      reviewGender.textContent = genderInput.value || "Not selected";
-      reviewQuarterZip.textContent = quarterZipSize.value || "Not selected";
-      reviewSecondItem.textContent = secondItemInput.value || "Not selected";
-      reviewSecondSize.textContent = secondItemSize.value || "Not selected";
-      reviewName.textContent = fullName || "Not entered";
-
-      circle1.classList.toggle("completed", completed1);
-      circle2.classList.toggle("completed", completed2);
-      circle3.classList.toggle("completed", completed3);
-      circle4.classList.toggle("completed", completed4);
-
-      if (!completed1) {
-        progressFill.style.width = "0%";
-        summaryStatus.textContent = "Start by selecting an apparel category.";
-      } else if (!completed2) {
-        progressFill.style.width = "25%";
-        summaryStatus.textContent = "Category complete. Select your quarter zip size.";
-      } else if (!completed3) {
-        progressFill.style.width = "50%";
-        summaryStatus.textContent = "Quarter zip complete. Choose your second item.";
-      } else if (!completed4) {
-        progressFill.style.width = "75%";
-        summaryStatus.textContent = "Apparel complete. Add your name to submit.";
-      } else {
-        progressFill.style.width = "75%";
-        summaryStatus.textContent = "All steps complete. Ready to submit.";
-      }
-    }
-
-    document.querySelectorAll(".category-card").forEach(card => {
-      card.addEventListener("click", () => {
-        document.querySelectorAll(".category-card").forEach(c => c.classList.remove("selected"));
-        card.classList.add("selected");
-
-        genderInput.value = card.dataset.gender;
-
-        updateProgress();
-
-        setTimeout(() => {
-          showStep(2);
-        }, 250);
-      });
-    });
-
-    quarterZipSize.addEventListener("change", () => {
-      updateProgress();
-
-      if (quarterZipSize.value) {
-        setTimeout(() => {
-          showStep(3);
-        }, 250);
-      }
-    });
-
-    document.querySelectorAll(".choice-card").forEach(card => {
-      card.addEventListener("click", () => {
-        document.querySelectorAll(".choice-card").forEach(c => c.classList.remove("selected"));
-        card.classList.add("selected");
-
-        secondItemInput.value = card.dataset.item;
-        updateProgress();
-
-        if (secondItemInput.value && secondItemSize.value) {
-          setTimeout(() => {
-            showStep(4);
-          }, 250);
+            summarySecondItemImage.src = "";
+            summarySecondItemImage.classList.remove("show");
+            summarySecondItemImage.classList.add("hidden-thumb");
+            summarySecondItem.textContent = "";
         }
-      });
-    });
 
-    secondItemSize.addEventListener("change", () => {
-      updateProgress();
+        function showStep(stepNumber) {
+            document.querySelectorAll(".step-screen").forEach(screen => {
+                screen.classList.remove("active");
+            });
 
-      if (secondItemInput.value && secondItemSize.value) {
-        setTimeout(() => {
-          showStep(4);
-        }, 250);
-      }
-    });
+            document.getElementById(`screen${stepNumber}`).classList.add("active");
 
-    [firstName, lastName].forEach(input => {
-      input.addEventListener("input", updateProgress);
-      input.addEventListener("change", updateProgress);
-    });
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
 
-    document.querySelectorAll("[data-go]").forEach(button => {
-      button.addEventListener("click", () => {
-        showStep(Number(button.dataset.go));
-      });
-    });
+            updateProgress();
+        }
 
-    form.addEventListener("submit", function () {
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Submitting Order...";
+        function isReadyToSubmit() {
+            return (
+                genderInput.value &&
+                quarterZipSize.value &&
+                secondItemInput.value &&
+                secondItemSize.value &&
+                firstName.value.trim() &&
+                lastName.value.trim()
+            );
+        }
 
-      setTimeout(function () {
-        message.textContent = "Your apparel order has been submitted successfully.";
-        message.className = "success";
+        function updateSelectedSecondImage() {
+            const selectedImages = apparelImages[genderInput.value];
 
-        form.reset();
+            if (!selectedImages || !secondItemInput.value) {
+                summarySecondItemImage.src = "";
+                summarySecondItemImage.classList.remove("show");
+                summarySecondItemImage.classList.add("hidden-thumb");
+                return;
+            }
 
-        genderInput.value = "";
-        secondItemInput.value = "";
+            if (secondItemInput.value === "Polo") {
+                summarySecondItemImage.src = selectedImages.polo;
+            } else if (secondItemInput.value === "Long Sleeve") {
+                summarySecondItemImage.src = selectedImages.longSleeve;
+            }
 
-        document.querySelectorAll(".category-card").forEach(c => c.classList.remove("selected"));
-        document.querySelectorAll(".choice-card").forEach(c => c.classList.remove("selected"));
+            summarySecondItemImage.classList.add("show");
+            summarySecondItemImage.classList.remove("hidden-thumb");
+        }
 
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Submit Apparel Order";
+        function updateModalSummary() {
+            const fullName = `${firstName.value.trim()} ${lastName.value.trim()}`.trim();
+            const selectedGender = genderInput.value;
+            const selectedImages = apparelImages[selectedGender];
+
+            modalName.textContent = fullName;
+
+            modalQuarterZipImage.src = selectedImages ? selectedImages.quarterZip : "";
+            modalQuarterZipName.textContent = selectedImages ? selectedImages.quarterZipTitle : "";
+            modalQuarterZipSize.textContent = quarterZipSize.value || "";
+
+            if (selectedImages) {
+                if (secondItemInput.value === "Polo") {
+                    modalSecondItemImage.src = selectedImages.polo;
+                    modalSecondItemName.textContent = selectedImages.poloTitle;
+                } else {
+                    modalSecondItemImage.src = selectedImages.longSleeve;
+                    modalSecondItemName.textContent = selectedImages.longSleeveTitle;
+                }
+            }
+
+            modalSecondItemSize.textContent = secondItemSize.value || "";
+        }
+
+        function updateProgress() {
+            const fullName = `${firstName.value.trim()} ${lastName.value.trim()}`.trim();
+
+            const completed1 = !!genderInput.value;
+            const completed2 = !!quarterZipSize.value;
+            const completed3 = !!secondItemInput.value && !!secondItemSize.value;
+            const completed4 = submittedComplete;
+            const readyToSubmit = isReadyToSubmit();
+
+            summaryGender.textContent = genderInput.value || "";
+            summaryQuarterZip.textContent = quarterZipSize.value || "";
+            summarySecondItem.textContent = secondItemNameInput.value || "";
+            summarySecondSize.textContent = secondItemSize.value || "";
+            summaryName.textContent = fullName || "";
+
+            updateSelectedSecondImage();
+
+            circle1.classList.toggle("completed", completed1);
+            circle2.classList.toggle("completed", completed2);
+            circle3.classList.toggle("completed", completed3);
+            circle4.classList.toggle("completed", completed4);
+
+            summaryRowCategory.classList.toggle("done", completed1);
+            summaryRowQuarterZipItem.classList.toggle("done", completed1);
+            summaryRowQuarterZipSize.classList.toggle("done", completed2);
+            summaryRowSecondItem.classList.toggle("done", !!secondItemInput.value);
+            summaryRowSecondSize.classList.toggle("done", !!secondItemSize.value);
+            summaryRowName.classList.toggle("done", !!fullName);
+
+            if (!completed1) {
+                progressFill.style.width = "0%";
+            } else if (!completed2) {
+                progressFill.style.width = "25%";
+            } else if (!completed3) {
+                progressFill.style.width = "50%";
+            } else {
+                progressFill.style.width = "75%";
+            }
+
+            submitBtn.disabled = !readyToSubmit || submittedComplete;
+            submitBtn.classList.toggle("locked", !readyToSubmit || submittedComplete);
+
+            if (submittedComplete) {
+                submitBtn.textContent = "Submitted";
+            } else {
+                submitBtn.textContent = readyToSubmit ? "Submit Apparel Order" : "Complete Selections First";
+            }
+        }
+
+        function resetPage() {
+            form.reset();
+
+            genderInput.value = "";
+            secondItemInput.value = "";
+            quarterZipItemNameInput.value = "";
+            secondItemNameInput.value = "";
+            submittedComplete = false;
+
+            document.querySelectorAll(".category-card").forEach(c => c.classList.remove("selected"));
+            document.querySelectorAll(".choice-card").forEach(c => c.classList.remove("selected"));
+
+            quarterZipImage.src = "/4.png";
+            quarterZipTitle.textContent = "Men's Quarter Zip";
+            poloImage.src = "/5.png";
+            poloTitle.textContent = "Men's Polo";
+            longSleeveImage.src = "/6.png";
+            longSleeveTitle.textContent = "Men's Long Sleeve";
+
+            summaryQuarterZipImage.src = "";
+            summaryQuarterZipImage.classList.remove("show");
+            summaryQuarterZipImage.classList.add("hidden-thumb");
+
+            summarySecondItemImage.src = "";
+            summarySecondItemImage.classList.remove("show");
+            summarySecondItemImage.classList.add("hidden-thumb");
+
+            summaryQuarterZipItem.textContent = "";
+
+            message.textContent = "";
+            message.className = "";
+
+            successModal.classList.remove("show");
+
+            updateProgress();
+            showStep(1);
+        }
+
+        document.querySelectorAll(".category-card").forEach(card => {
+            card.addEventListener("click", () => {
+                submittedComplete = false;
+
+                document.querySelectorAll(".category-card").forEach(c => c.classList.remove("selected"));
+                card.classList.add("selected");
+
+                genderInput.value = card.dataset.gender;
+                applyGenderImages(card.dataset.gender);
+                updateProgress();
+
+                setTimeout(() => {
+                    showStep(2);
+                }, 250);
+            });
+        });
+
+        quarterZipSize.addEventListener("change", () => {
+            submittedComplete = false;
+            updateProgress();
+
+            if (quarterZipSize.value) {
+                setTimeout(() => {
+                    showStep(3);
+                }, 250);
+            }
+        });
+
+        document.querySelectorAll(".choice-card").forEach(card => {
+            card.addEventListener("click", () => {
+                submittedComplete = false;
+
+                document.querySelectorAll(".choice-card").forEach(c => c.classList.remove("selected"));
+                card.classList.add("selected");
+
+                secondItemInput.value = card.dataset.item;
+
+                const selectedImages = apparelImages[genderInput.value];
+
+                if (selectedImages) {
+                    secondItemNameInput.value =
+                        card.dataset.item === "Polo"
+                            ? selectedImages.poloTitle
+                            : selectedImages.longSleeveTitle;
+                }
+
+                updateProgress();
+
+                if (secondItemInput.value && secondItemSize.value) {
+                    setTimeout(() => {
+                        showStep(4);
+                    }, 250);
+                }
+            });
+        });
+
+        secondItemSize.addEventListener("change", () => {
+            submittedComplete = false;
+            updateProgress();
+
+            if (secondItemInput.value && secondItemSize.value) {
+                setTimeout(() => {
+                    showStep(4);
+                }, 250);
+            }
+        });
+
+        [firstName, lastName].forEach(input => {
+            input.addEventListener("input", () => {
+                submittedComplete = false;
+                updateProgress();
+            });
+
+            input.addEventListener("change", () => {
+                submittedComplete = false;
+                updateProgress();
+            });
+        });
+
+        document.querySelectorAll("[data-go]").forEach(button => {
+            button.addEventListener("click", () => {
+                showStep(Number(button.dataset.go));
+            });
+        });
+
+        form.addEventListener("submit", function (e) {
+            const readyToSubmit = isReadyToSubmit();
+
+            if (!readyToSubmit) {
+                e.preventDefault();
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.classList.add("locked");
+            submitBtn.textContent = "Submitting Order...";
+
+            setTimeout(function () {
+                submittedComplete = true;
+                updateProgress();
+                updateModalSummary();
+                successModal.classList.add("show");
+            }, 1200);
+        });
+
+        doAgainBtn.addEventListener("click", resetPage);
 
         updateProgress();
-        showStep(1);
-      }, 1200);
-    });
-
-    updateProgress();
-  </script>
+    </script>
 
 </body>
+
 </html>
