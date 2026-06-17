@@ -23,7 +23,8 @@ images/button-down.jpg
       --gray: #64748b;
       --light: #f6f8fb;
       --border: #dde5f0;
-      --green: #087f5b;
+      --green: #16a34a;
+      --green-dark: #087f5b;
       --orange: #92400e;
       --white: #ffffff;
       --shadow: 0 24px 70px rgba(7, 22, 47, 0.18);
@@ -47,7 +48,7 @@ images/button-down.jpg
       position: sticky;
       top: 0;
       z-index: 20;
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
     }
@@ -57,52 +58,15 @@ images/button-down.jpg
       margin: 0 auto;
       padding: 18px 22px;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      gap: 18px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 18px;
     }
 
     .logo {
-      height: 50px;
-      max-width: 180px;
+      height: 68px;
+      max-width: 260px;
       object-fit: contain;
-    }
-
-    .brand-copy {
-      border-left: 1px solid var(--border);
-      padding-left: 18px;
-    }
-
-    .brand-copy span {
       display: block;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--blue);
-    }
-
-    .brand-copy strong {
-      display: block;
-      font-size: 18px;
-      color: var(--navy);
-    }
-
-    .header-pill {
-      background: var(--sky);
-      color: var(--blue-dark);
-      border: 1px solid #c9ddff;
-      padding: 10px 15px;
-      border-radius: 999px;
-      font-weight: 900;
-      font-size: 13px;
-      white-space: nowrap;
     }
 
     .page {
@@ -208,7 +172,7 @@ images/button-down.jpg
     }
 
     .portal {
-      background: rgba(255,255,255,0.92);
+      background: rgba(255,255,255,0.94);
       border: 1px solid rgba(221, 229, 240, 0.9);
       border-radius: 30px;
       padding: 40px;
@@ -218,26 +182,62 @@ images/button-down.jpg
     .steps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-bottom: 34px;
+      gap: 16px;
+      margin-bottom: 36px;
     }
 
     .step {
+      display: flex;
+      align-items: center;
+      gap: 14px;
       background: var(--light);
       border: 1px solid var(--border);
       border-radius: 18px;
-      padding: 16px;
+      padding: 18px;
+      transition: 0.25s ease;
+    }
+
+    .step-icon {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      border-radius: 50%;
+      background: #e2e8f0;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 950;
+      font-size: 18px;
+      transition: 0.25s ease;
     }
 
     .step strong {
       display: block;
-      font-size: 14px;
+      font-size: 15px;
       margin-bottom: 4px;
+      color: var(--navy);
     }
 
     .step span {
       color: var(--gray);
       font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .step.completed {
+      border-color: rgba(22, 163, 74, 0.55);
+      background: #f0fdf4;
+      box-shadow: 0 12px 24px rgba(22, 163, 74, 0.10);
+    }
+
+    .step.completed .step-icon {
+      background: var(--green);
+      color: white;
+    }
+
+    .step.completed strong {
+      color: #14532d;
     }
 
     .section-heading {
@@ -461,7 +461,7 @@ images/button-down.jpg
       display: inline-block;
       background: #e8fff6;
       border: 1px solid #b8f2dc;
-      color: var(--green);
+      color: var(--green-dark);
       border-radius: 999px;
       padding: 7px 12px;
       font-size: 12px;
@@ -539,7 +539,7 @@ images/button-down.jpg
     }
 
     .success {
-      color: var(--green);
+      color: var(--green-dark);
     }
 
     @media (max-width: 950px) {
@@ -563,18 +563,12 @@ images/button-down.jpg
     }
 
     @media (max-width: 680px) {
-      .header-inner {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .brand-copy {
-        border-left: none;
-        padding-left: 0;
-      }
-
       .page {
         padding: 22px 14px 46px;
+      }
+
+      .logo {
+        height: 54px;
       }
 
       .hero {
@@ -603,10 +597,6 @@ images/button-down.jpg
       .category-card {
         padding: 26px;
       }
-
-      .header-pill {
-        white-space: normal;
-      }
     }
   </style>
 </head>
@@ -615,15 +605,7 @@ images/button-down.jpg
 
   <header class="site-header">
     <div class="header-inner">
-      <div class="brand">
-        <img src="images/airxcel-logo.png" alt="Airxcel Logo" class="logo">
-        <div class="brand-copy">
-          <span>Showcase Apparel Program</span>
-          <strong>Employee Order Portal</strong>
-        </div>
-      </div>
-
-      <div class="header-pill">One Quarter Zip + One Selected Item</div>
+      <img src="images/airxcel-logo.png" alt="Airxcel Logo" class="logo">
     </div>
   </header>
 
@@ -652,17 +634,28 @@ images/button-down.jpg
     <section class="portal">
 
       <div class="steps">
-        <div class="step">
-          <strong>1. Select Category</strong>
-          <span>Choose men’s or women’s options.</span>
+        <div class="step" id="step1">
+          <div class="step-icon">✓</div>
+          <div>
+            <strong>Select Category</strong>
+            <span>Choose men’s or women’s apparel.</span>
+          </div>
         </div>
-        <div class="step">
-          <strong>2. Choose Sizes</strong>
-          <span>Select quarter zip and second item size.</span>
+
+        <div class="step" id="step2">
+          <div class="step-icon">✓</div>
+          <div>
+            <strong>Choose Apparel</strong>
+            <span>Select sizes and second item.</span>
+          </div>
         </div>
-        <div class="step">
-          <strong>3. Submit Order</strong>
-          <span>Your selection is sent for fulfillment.</span>
+
+        <div class="step" id="step3">
+          <div class="step-icon">✓</div>
+          <div>
+            <strong>Submit Order</strong>
+            <span>Complete your selection.</span>
+          </div>
         </div>
       </div>
 
@@ -830,12 +823,35 @@ images/button-down.jpg
     const message = document.getElementById("message");
     const submitBtn = document.getElementById("submitBtn");
 
+    const step1 = document.getElementById("step1");
+    const step2 = document.getElementById("step2");
+    const step3 = document.getElementById("step3");
+
+    const quarterZipSize = document.getElementById("quarterZipSize");
+    const secondItemSize = document.getElementById("secondItemSize");
+    const secondItemRadios = document.querySelectorAll('input[name="secondItem"]');
+
+    function checkStep2() {
+      const hasQuarterZipSize = quarterZipSize.value;
+      const hasSecondItem = document.querySelector('input[name="secondItem"]:checked');
+      const hasSecondItemSize = secondItemSize.value;
+
+      if (hasQuarterZipSize && hasSecondItem && hasSecondItemSize) {
+        step2.classList.add("completed");
+      } else {
+        step2.classList.remove("completed");
+      }
+    }
+
     document.querySelectorAll(".category-card").forEach(card => {
       card.addEventListener("click", () => {
         const selectedGender = card.dataset.gender;
 
         genderInput.value = selectedGender;
         selectedGenderText.textContent = selectedGender + " Options";
+
+        step1.classList.add("completed");
+        step3.classList.remove("completed");
 
         categoryStep.classList.add("hidden");
         form.classList.remove("hidden");
@@ -848,7 +864,21 @@ images/button-down.jpg
       form.classList.add("hidden");
       categoryStep.classList.remove("hidden");
       message.textContent = "";
+
+      step1.classList.remove("completed");
+      step2.classList.remove("completed");
+      step3.classList.remove("completed");
+
+      form.reset();
+
       window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    quarterZipSize.addEventListener("change", checkStep2);
+    secondItemSize.addEventListener("change", checkStep2);
+
+    secondItemRadios.forEach(radio => {
+      radio.addEventListener("change", checkStep2);
     });
 
     form.addEventListener("submit", function () {
@@ -856,6 +886,8 @@ images/button-down.jpg
       submitBtn.textContent = "Submitting Order...";
 
       setTimeout(function () {
+        step3.classList.add("completed");
+
         message.textContent = "Your apparel order has been submitted successfully.";
         message.className = "success";
 
