@@ -1,17 +1,9 @@
-<!-- Replace: PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE -->
-<!-- Images needed:
-images/airxcel-logo.png
-images/apparel-hero.jpg
-images/quarter-zip.jpg
-images/polo.jpg
-images/button-down.jpg
--->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Airxcel Showcase Apparel Order</title>
 
   <style>
@@ -19,7 +11,6 @@ images/button-down.jpg
       --navy: #07162f;
       --blue: #155eef;
       --blue-dark: #0f3fb8;
-      --sky: #eaf2ff;
       --gray: #64748b;
       --light: #f6f8fb;
       --border: #dde5f0;
@@ -75,100 +66,24 @@ images/button-down.jpg
       padding: 36px 22px 70px;
     }
 
-    .hero {
-      display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
+    .hero-logo-only {
+      background: white;
       border-radius: 34px;
-      overflow: hidden;
-      background:
-        linear-gradient(135deg, rgba(7, 22, 47, 0.98), rgba(15, 63, 184, 0.94)),
-        #07162f;
+      padding: 70px 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       box-shadow: var(--shadow);
       margin-bottom: 34px;
+      border: 1px solid rgba(221, 229, 240, 0.95);
     }
 
-    .hero-content {
-      padding: 62px;
-      color: white;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-content::after {
-      content: "";
-      position: absolute;
-      width: 260px;
-      height: 260px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.07);
-      right: -90px;
-      bottom: -90px;
-    }
-
-    .eyebrow {
-      margin: 0 0 12px;
-      color: var(--blue);
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-
-    .hero .eyebrow {
-      color: #bcd5ff;
-    }
-
-    h1 {
-      font-size: clamp(40px, 5vw, 62px);
-      line-height: 0.98;
-      letter-spacing: -0.05em;
-      margin: 0 0 22px;
-    }
-
-    .hero-text {
-      color: #dbeafe;
-      font-size: 18px;
-      line-height: 1.7;
-      max-width: 650px;
-      margin: 0;
-    }
-
-    .hero-points {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 30px;
-    }
-
-    .hero-points span {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      color: white;
-      border-radius: 999px;
-      padding: 11px 15px;
-      font-size: 13px;
-      font-weight: 900;
-    }
-
-    .hero-image {
-      min-height: 430px;
-      position: relative;
-      background: #dbeafe;
-    }
-
-    .hero-image img {
+    .hero-main-logo {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      max-width: 650px;
+      height: auto;
+      object-fit: contain;
       display: block;
-      filter: saturate(1.05) contrast(1.02);
-    }
-
-    .hero-image::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, rgba(7, 22, 47, 0.25), transparent);
     }
 
     .portal {
@@ -190,17 +105,17 @@ images/button-down.jpg
       display: flex;
       align-items: center;
       gap: 14px;
-      background: var(--light);
-      border: 1px solid var(--border);
+      background: white;
+      border: 2px solid var(--border);
       border-radius: 18px;
-      padding: 18px;
+      padding: 20px;
       transition: 0.25s ease;
     }
 
     .step-icon {
-      width: 40px;
-      height: 40px;
-      min-width: 40px;
+      width: 42px;
+      height: 42px;
+      min-width: 42px;
       border-radius: 50%;
       background: #e2e8f0;
       color: #94a3b8;
@@ -208,7 +123,6 @@ images/button-down.jpg
       align-items: center;
       justify-content: center;
       font-weight: 950;
-      font-size: 18px;
       transition: 0.25s ease;
     }
 
@@ -226,9 +140,9 @@ images/button-down.jpg
     }
 
     .step.completed {
-      border-color: rgba(22, 163, 74, 0.55);
+      border-color: rgba(22, 163, 74, 0.7);
       background: #f0fdf4;
-      box-shadow: 0 12px 24px rgba(22, 163, 74, 0.10);
+      box-shadow: 0 12px 24px rgba(22, 163, 74, 0.12);
     }
 
     .step.completed .step-icon {
@@ -238,6 +152,15 @@ images/button-down.jpg
 
     .step.completed strong {
       color: #14532d;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
     }
 
     .section-heading {
@@ -268,8 +191,7 @@ images/button-down.jpg
     .category-card {
       border: 1px solid var(--border);
       border-radius: 26px;
-      background:
-        linear-gradient(180deg, #ffffff, #f8fbff);
+      background: linear-gradient(180deg, #ffffff, #f8fbff);
       padding: 34px;
       cursor: pointer;
       text-align: left;
@@ -543,13 +465,8 @@ images/button-down.jpg
     }
 
     @media (max-width: 950px) {
-      .hero,
       .apparel-grid {
         grid-template-columns: 1fr;
-      }
-
-      .hero-image {
-        min-height: 300px;
       }
 
       .steps {
@@ -571,12 +488,13 @@ images/button-down.jpg
         height: 54px;
       }
 
-      .hero {
+      .hero-logo-only {
         border-radius: 24px;
+        padding: 42px 22px;
       }
 
-      .hero-content {
-        padding: 34px 24px;
+      .hero-main-logo {
+        max-width: 350px;
       }
 
       .portal {
@@ -611,31 +529,23 @@ images/button-down.jpg
 
   <main class="page">
 
-    <section class="hero">
-      <div class="hero-content">
-        <p class="eyebrow">Airxcel Showcase</p>
-        <h1>Professional Apparel Selection</h1>
-        <p class="hero-text">
-          Complete your employee apparel selection below. Each team member will receive one required quarter zip and one additional item of their choice.
-        </p>
-
-        <div class="hero-points">
-          <span>Corporate Apparel Program</span>
-          <span>Two Items Total</span>
-          <span>Simple Employee Submission</span>
-        </div>
-      </div>
-
-      <div class="hero-image">
-        <img src="./logo.jpg" alt="Professional apparel display">
-      </div>
+    <section class="hero-logo-only">
+      <img src="./logo.jpg" alt="Airxcel Logo" class="hero-main-logo">
     </section>
 
     <section class="portal">
 
       <div class="steps">
         <div class="step" id="step1">
-          <div class="step-icon">✓</div>
+          <div class="step-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M20 6L9 17L4 12"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"/>
+            </svg>
+          </div>
           <div>
             <strong>Select Category</strong>
             <span>Choose men’s or women’s apparel.</span>
@@ -643,7 +553,15 @@ images/button-down.jpg
         </div>
 
         <div class="step" id="step2">
-          <div class="step-icon">✓</div>
+          <div class="step-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M20 6L9 17L4 12"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"/>
+            </svg>
+          </div>
           <div>
             <strong>Choose Apparel</strong>
             <span>Select sizes and second item.</span>
@@ -651,7 +569,15 @@ images/button-down.jpg
         </div>
 
         <div class="step" id="step3">
-          <div class="step-icon">✓</div>
+          <div class="step-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M20 6L9 17L4 12"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"/>
+            </svg>
+          </div>
           <div>
             <strong>Submit Order</strong>
             <span>Complete your selection.</span>
@@ -851,6 +777,7 @@ images/button-down.jpg
         selectedGenderText.textContent = selectedGender + " Options";
 
         step1.classList.add("completed");
+        step2.classList.remove("completed");
         step3.classList.remove("completed");
 
         categoryStep.classList.add("hidden");
@@ -894,6 +821,9 @@ images/button-down.jpg
         form.reset();
         form.classList.add("hidden");
         categoryStep.classList.remove("hidden");
+
+        step1.classList.remove("completed");
+        step2.classList.remove("completed");
 
         submitBtn.disabled = false;
         submitBtn.textContent = "Submit Apparel Order";
