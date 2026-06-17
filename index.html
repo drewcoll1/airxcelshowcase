@@ -125,6 +125,7 @@
       border-radius: 999px;
       z-index: 2;
       transition: 0.3s ease;
+      max-width: 75%;
     }
 
     .progress-step {
@@ -170,6 +171,98 @@
       color: var(--green-dark);
     }
 
+    .wizard-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 350px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .wizard-main {
+      min-width: 0;
+    }
+
+    .wizard-panel {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 30px;
+      box-shadow: 0 14px 34px rgba(7, 22, 47, 0.08);
+      min-height: 470px;
+    }
+
+    .summary-panel {
+      position: sticky;
+      top: 112px;
+      background: linear-gradient(180deg, #ffffff, #f8fbff);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 14px 34px rgba(7, 22, 47, 0.08);
+    }
+
+    .summary-panel h3 {
+      margin: 0 0 18px;
+      font-size: 26px;
+      letter-spacing: -0.03em;
+    }
+
+    .summary-row {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .summary-row:last-child {
+      border-bottom: none;
+    }
+
+    .summary-row span {
+      display: block;
+      color: var(--gray);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 5px;
+    }
+
+    .summary-row strong {
+      display: block;
+      font-size: 17px;
+      color: var(--navy);
+    }
+
+    .summary-complete {
+      margin-top: 22px;
+      background: #f0fdf4;
+      border: 1px solid rgba(22, 163, 74, 0.35);
+      color: #14532d;
+      border-radius: 18px;
+      padding: 16px;
+      font-weight: 900;
+      line-height: 1.45;
+    }
+
+    .step-screen {
+      display: none;
+      animation: fadeUp 0.28s ease;
+    }
+
+    .step-screen.active {
+      display: block;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .eyebrow {
       margin: 0 0 12px;
       color: var(--blue);
@@ -179,23 +272,22 @@
       text-transform: uppercase;
     }
 
-    .section-heading {
-      text-align: center;
-      max-width: 760px;
-      margin: 0 auto 30px;
+    .step-heading {
+      margin-bottom: 28px;
     }
 
-    .section-heading h2 {
-      font-size: 36px;
-      letter-spacing: -0.035em;
+    .step-heading h2 {
+      font-size: 38px;
+      letter-spacing: -0.04em;
       margin: 0 0 10px;
     }
 
-    .section-heading p {
+    .step-heading p {
       color: var(--gray);
       font-size: 16px;
       line-height: 1.6;
       margin: 0;
+      max-width: 660px;
     }
 
     .category-grid,
@@ -203,7 +295,6 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 22px;
-      margin-bottom: 28px;
     }
 
     .category-card,
@@ -225,6 +316,12 @@
       box-shadow: 0 20px 45px rgba(21, 94, 239, 0.17);
     }
 
+    .category-card.selected,
+    .choice-card.selected {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 4px rgba(21, 94, 239, 0.12), 0 18px 40px rgba(21, 94, 239, 0.12);
+    }
+
     .category-card span,
     .choice-card span {
       display: block;
@@ -242,109 +339,16 @@
       line-height: 1.45;
     }
 
-    .choice-card.selected {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 4px rgba(21, 94, 239, 0.12), 0 18px 40px rgba(21, 94, 239, 0.12);
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .selected-banner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 18px;
-      background: linear-gradient(135deg, #f8fbff, #edf5ff);
-      border: 1px solid #cfe0ff;
-      border-radius: 22px;
-      padding: 24px;
-      margin-bottom: 24px;
-    }
-
-    .selected-banner h2 {
-      margin: 0;
-      font-size: 30px;
-      letter-spacing: -0.03em;
-    }
-
-    #changeCategoryBtn {
-      border: 1px solid #cbd5e1;
-      background: white;
-      color: var(--navy);
-      border-radius: 999px;
-      padding: 11px 18px;
-      font-weight: 900;
-      cursor: pointer;
-    }
-
-    .form-section {
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 28px;
-      margin-bottom: 24px;
-    }
-
-    .form-section h3 {
-      margin: 0 0 4px;
-      font-size: 24px;
-      letter-spacing: -0.025em;
-    }
-
-    .muted {
-      color: var(--gray);
-      line-height: 1.55;
-      margin: 5px 0 0;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-    }
-
-    .field {
-      margin-top: 18px;
-    }
-
-    label {
-      display: block;
-      font-weight: 900;
-      margin-bottom: 8px;
-      color: #243247;
-    }
-
-    input,
-    select {
-      width: 100%;
-      padding: 15px;
-      border: 1px solid #cbd5e1;
-      border-radius: 14px;
-      font-size: 16px;
-      background: white;
-      color: var(--navy);
-    }
-
-    input:focus,
-    select:focus {
-      outline: none;
-      border-color: var(--blue);
-      box-shadow: 0 0 0 4px rgba(21, 94, 239, 0.12);
-    }
-
     .product-card {
       border: 2px solid var(--border);
       border-radius: 26px;
       overflow: hidden;
       background: white;
       box-shadow: 0 12px 32px rgba(7, 22, 47, 0.08);
-      margin-bottom: 24px;
     }
 
     .product-img {
-      height: 320px;
+      height: 300px;
       background: #eef3f9;
     }
 
@@ -384,18 +388,65 @@
       letter-spacing: 0.06em;
     }
 
-    .summary-box {
-      background: #fff8ed;
-      border: 1px solid #ffd8a8;
-      color: var(--orange);
-      padding: 20px;
-      border-radius: 18px;
-      margin-bottom: 24px;
-      line-height: 1.65;
+    .field {
+      margin-top: 18px;
     }
 
-    .summary-box strong {
-      color: #78350f;
+    label {
+      display: block;
+      font-weight: 900;
+      margin-bottom: 8px;
+      color: #243247;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #cbd5e1;
+      border-radius: 14px;
+      font-size: 16px;
+      background: white;
+      color: var(--navy);
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--blue);
+      box-shadow: 0 0 0 4px rgba(21, 94, 239, 0.12);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .back-btn {
+      border: 1px solid #cbd5e1;
+      background: white;
+      color: var(--navy);
+      border-radius: 999px;
+      padding: 13px 18px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .next-btn {
+      border: none;
+      background: var(--navy);
+      color: white;
+      border-radius: 999px;
+      padding: 13px 20px;
+      font-weight: 900;
+      cursor: pointer;
     }
 
     .submit-btn {
@@ -410,6 +461,7 @@
       cursor: pointer;
       transition: 0.2s ease;
       box-shadow: 0 16px 35px rgba(21, 94, 239, 0.28);
+      margin-top: 24px;
     }
 
     .submit-btn:hover {
@@ -424,6 +476,16 @@
       transform: none;
     }
 
+    .review-box {
+      background: #fff8ed;
+      border: 1px solid #ffd8a8;
+      color: var(--orange);
+      padding: 20px;
+      border-radius: 18px;
+      line-height: 1.65;
+      margin-top: 24px;
+    }
+
     #message {
       text-align: center;
       font-weight: 950;
@@ -434,7 +496,11 @@
       color: var(--green-dark);
     }
 
-    @media (max-width: 950px) {
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 1000px) {
       .top-bar {
         grid-template-columns: 1fr;
         gap: 32px;
@@ -446,6 +512,14 @@
 
       .hero-main-logo {
         max-width: 420px;
+      }
+
+      .wizard-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .summary-panel {
+        position: static;
       }
     }
 
@@ -492,13 +566,18 @@
         grid-template-columns: 1fr;
       }
 
-      .selected-banner {
-        flex-direction: column;
-        align-items: flex-start;
+      .wizard-panel,
+      .summary-panel {
+        padding: 22px;
+        border-radius: 22px;
+      }
+
+      .step-heading h2 {
+        font-size: 31px;
       }
 
       .product-img {
-        height: 250px;
+        height: 240px;
       }
     }
   </style>
@@ -571,53 +650,92 @@
         <input type="hidden" id="gender" name="gender" />
         <input type="hidden" id="secondItem" name="secondItem" />
 
-        <div id="categoryStep">
-          <div class="section-heading">
-            <p class="eyebrow">Step 1</p>
-            <h2>Select Apparel Category</h2>
-            <p>Choose either Men’s Options or Women’s Options to begin your apparel order.</p>
-          </div>
+        <div class="wizard-layout">
 
-          <div class="category-grid">
-            <button type="button" class="category-card" data-gender="Men's">
-              <span>Men’s Options</span>
-              <small>Continue to men’s quarter zip, polo, and button down options.</small>
-            </button>
+          <div class="wizard-main">
+            <div class="wizard-panel">
 
-            <button type="button" class="category-card" data-gender="Women's">
-              <span>Women’s Options</span>
-              <small>Continue to women’s quarter zip, polo, and button down options.</small>
-            </button>
-          </div>
-        </div>
+              <div class="step-screen active" id="screen1">
+                <div class="step-heading">
+                  <p class="eyebrow">Step 1</p>
+                  <h2>Select Apparel Category</h2>
+                  <p>Choose either Men’s Options or Women’s Options to begin your apparel order.</p>
+                </div>
 
-        <div id="orderSteps" class="hidden">
+                <div class="category-grid">
+                  <button type="button" class="category-card" data-gender="Men's">
+                    <span>Men’s Options</span>
+                    <small>Continue to men’s quarter zip, polo, and button down options.</small>
+                  </button>
 
-          <div class="selected-banner">
-            <div>
-              <p class="eyebrow">Selected Category</p>
-              <h2 id="selectedGenderText"></h2>
-            </div>
-            <button type="button" id="changeCategoryBtn">Change Category</button>
-          </div>
-
-          <div class="form-section">
-            <h3>Required Quarter Zip</h3>
-            <p class="muted">Every employee receives one required quarter zip. Please select your size.</p>
-
-            <div class="product-card">
-              <div class="product-img">
-                <img src="images/quarter-zip.jpg" alt="Quarter Zip">
+                  <button type="button" class="category-card" data-gender="Women's">
+                    <span>Women’s Options</span>
+                    <small>Continue to women’s quarter zip, polo, and button down options.</small>
+                  </button>
+                </div>
               </div>
 
-              <div class="product-info">
-                <span class="pill">Required Item</span>
-                <h3>Quarter Zip</h3>
-                <p>This is included with every apparel order.</p>
+              <div class="step-screen" id="screen2">
+                <div class="step-heading">
+                  <p class="eyebrow">Step 2</p>
+                  <h2>Required Quarter Zip</h2>
+                  <p>Every employee receives one required quarter zip. Please select your size.</p>
+                </div>
+
+                <div class="product-card">
+                  <div class="product-img">
+                    <img src="images/quarter-zip.jpg" alt="Quarter Zip">
+                  </div>
+
+                  <div class="product-info">
+                    <span class="pill">Required Item</span>
+                    <h3>Quarter Zip</h3>
+                    <p>This is included with every apparel order.</p>
+
+                    <div class="field">
+                      <label for="quarterZipSize">Quarter Zip Size</label>
+                      <select id="quarterZipSize" name="quarterZipSize" required>
+                        <option value="">Select Size</option>
+                        <option>XS</option>
+                        <option>S</option>
+                        <option>M</option>
+                        <option>L</option>
+                        <option>XL</option>
+                        <option>2XL</option>
+                        <option>3XL</option>
+                        <option>4XL</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="button-row">
+                  <button type="button" class="back-btn" data-go="1">Back</button>
+                </div>
+              </div>
+
+              <div class="step-screen" id="screen3">
+                <div class="step-heading">
+                  <p class="eyebrow">Step 3</p>
+                  <h2>Choose Your Second Item</h2>
+                  <p>Choose one additional apparel item: either a polo or a button down.</p>
+                </div>
+
+                <div class="choice-grid">
+                  <button type="button" class="choice-card" data-item="Polo">
+                    <span>Polo</span>
+                    <small>Select the polo as your one additional apparel item.</small>
+                  </button>
+
+                  <button type="button" class="choice-card" data-item="Button Down">
+                    <span>Button Down</span>
+                    <small>Select the button down as your one additional apparel item.</small>
+                  </button>
+                </div>
 
                 <div class="field">
-                  <label for="quarterZipSize">Quarter Zip Size</label>
-                  <select id="quarterZipSize" name="quarterZipSize" required>
+                  <label for="secondItemSize">Second Item Size</label>
+                  <select id="secondItemSize" name="secondItemSize" required>
                     <option value="">Select Size</option>
                     <option>XS</option>
                     <option>S</option>
@@ -629,72 +747,90 @@
                     <option>4XL</option>
                   </select>
                 </div>
-              </div>
-            </div>
-          </div>
 
-          <div class="form-section">
-            <h3>Choose Your Second Item</h3>
-            <p class="muted">Choose one additional apparel item: either a polo or a button down.</p>
-
-            <div class="choice-grid">
-              <button type="button" class="choice-card" data-item="Polo">
-                <span>Polo</span>
-                <small>Select the polo as your one additional apparel item.</small>
-              </button>
-
-              <button type="button" class="choice-card" data-item="Button Down">
-                <span>Button Down</span>
-                <small>Select the button down as your one additional apparel item.</small>
-              </button>
-            </div>
-
-            <div class="field">
-              <label for="secondItemSize">Second Item Size</label>
-              <select id="secondItemSize" name="secondItemSize" required>
-                <option value="">Select Size</option>
-                <option>XS</option>
-                <option>S</option>
-                <option>M</option>
-                <option>L</option>
-                <option>XL</option>
-                <option>2XL</option>
-                <option>3XL</option>
-                <option>4XL</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-section">
-            <h3>Submit Your Order</h3>
-            <p class="muted">Add your name and review your selections before submitting.</p>
-
-            <div class="grid">
-              <div class="field">
-                <label for="firstName">First Name</label>
-                <input type="text" id="firstName" name="firstName" required>
+                <div class="button-row">
+                  <button type="button" class="back-btn" data-go="2">Back</button>
+                </div>
               </div>
 
-              <div class="field">
-                <label for="lastName">Last Name</label>
-                <input type="text" id="lastName" name="lastName" required>
+              <div class="step-screen" id="screen4">
+                <div class="step-heading">
+                  <p class="eyebrow">Step 4</p>
+                  <h2>Submit Your Order</h2>
+                  <p>Add your name and review your selections before submitting.</p>
+                </div>
+
+                <div class="grid">
+                  <div class="field">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                  </div>
+
+                  <div class="field">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                  </div>
+                </div>
+
+                <div class="review-box">
+                  <strong>Final Review</strong><br>
+                  Category: <span id="reviewGender">Not selected</span><br>
+                  Quarter Zip: Size <span id="reviewQuarterZip">Not selected</span><br>
+                  Second Item: <span id="reviewSecondItem">Not selected</span> — Size <span id="reviewSecondSize">Not selected</span><br>
+                  Employee: <span id="reviewName">Not entered</span>
+                </div>
+
+                <button type="submit" id="submitBtn" class="submit-btn">
+                  Submit Apparel Order
+                </button>
+
+                <button type="button" class="back-btn" data-go="3" style="margin-top:14px;">
+                  Back
+                </button>
+
+                <p id="message"></p>
               </div>
+
             </div>
           </div>
 
-          <div class="summary-box">
-            <strong>Order Summary</strong><br>
-            Category: <span id="summaryGender">Not selected</span><br>
-            Required Item: Quarter Zip — Size <span id="summaryQuarterZip">Not selected</span><br>
-            Second Item: <span id="summarySecondItem">Not selected</span> — Size <span id="summarySecondSize">Not selected</span><br>
-            Employee: <span id="summaryName">Not entered</span>
-          </div>
+          <aside class="summary-panel">
+            <h3>Order Summary</h3>
 
-          <button type="submit" id="submitBtn" class="submit-btn">
-            Submit Apparel Order
-          </button>
+            <div class="summary-row">
+              <span>Category</span>
+              <strong id="summaryGender">Not selected</strong>
+            </div>
 
-          <p id="message"></p>
+            <div class="summary-row">
+              <span>Required Item</span>
+              <strong>Quarter Zip</strong>
+            </div>
+
+            <div class="summary-row">
+              <span>Quarter Zip Size</span>
+              <strong id="summaryQuarterZip">Not selected</strong>
+            </div>
+
+            <div class="summary-row">
+              <span>Second Item</span>
+              <strong id="summarySecondItem">Not selected</strong>
+            </div>
+
+            <div class="summary-row">
+              <span>Second Item Size</span>
+              <strong id="summarySecondSize">Not selected</strong>
+            </div>
+
+            <div class="summary-row">
+              <span>Employee</span>
+              <strong id="summaryName">Not entered</strong>
+            </div>
+
+            <div class="summary-complete" id="summaryStatus">
+              Start by selecting an apparel category.
+            </div>
+          </aside>
 
         </div>
       </form>
@@ -706,14 +842,9 @@
 
   <script>
     const form = document.getElementById("airxcelForm");
-    const categoryStep = document.getElementById("categoryStep");
-    const orderSteps = document.getElementById("orderSteps");
 
     const genderInput = document.getElementById("gender");
     const secondItemInput = document.getElementById("secondItem");
-
-    const selectedGenderText = document.getElementById("selectedGenderText");
-    const changeCategoryBtn = document.getElementById("changeCategoryBtn");
 
     const firstName = document.getElementById("firstName");
     const lastName = document.getElementById("lastName");
@@ -734,9 +865,40 @@
     const summarySecondItem = document.getElementById("summarySecondItem");
     const summarySecondSize = document.getElementById("summarySecondSize");
     const summaryName = document.getElementById("summaryName");
+    const summaryStatus = document.getElementById("summaryStatus");
+
+    const reviewGender = document.getElementById("reviewGender");
+    const reviewQuarterZip = document.getElementById("reviewQuarterZip");
+    const reviewSecondItem = document.getElementById("reviewSecondItem");
+    const reviewSecondSize = document.getElementById("reviewSecondSize");
+    const reviewName = document.getElementById("reviewName");
+
+    let currentStep = 1;
+
+    function showStep(stepNumber) {
+      currentStep = stepNumber;
+
+      document.querySelectorAll(".step-screen").forEach(screen => {
+        screen.classList.remove("active");
+      });
+
+      document.getElementById(`screen${stepNumber}`).classList.add("active");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+      updateProgress();
+    }
 
     function updateProgress() {
       const fullName = `${firstName.value.trim()} ${lastName.value.trim()}`.trim();
+
+      const completed1 = !!genderInput.value;
+      const completed2 = !!quarterZipSize.value;
+      const completed3 = !!secondItemInput.value && !!secondItemSize.value;
+      const completed4 = !!firstName.value.trim() && !!lastName.value.trim();
 
       summaryGender.textContent = genderInput.value || "Not selected";
       summaryQuarterZip.textContent = quarterZipSize.value || "Not selected";
@@ -744,68 +906,95 @@
       summarySecondSize.textContent = secondItemSize.value || "Not selected";
       summaryName.textContent = fullName || "Not entered";
 
-      const completed1 = !!genderInput.value;
-      const completed2 = !!quarterZipSize.value;
-      const completed3 = !!secondItemInput.value && !!secondItemSize.value;
-      const completed4 = !!firstName.value.trim() && !!lastName.value.trim();
+      reviewGender.textContent = genderInput.value || "Not selected";
+      reviewQuarterZip.textContent = quarterZipSize.value || "Not selected";
+      reviewSecondItem.textContent = secondItemInput.value || "Not selected";
+      reviewSecondSize.textContent = secondItemSize.value || "Not selected";
+      reviewName.textContent = fullName || "Not entered";
 
       circle1.classList.toggle("completed", completed1);
       circle2.classList.toggle("completed", completed2);
       circle3.classList.toggle("completed", completed3);
       circle4.classList.toggle("completed", completed4);
 
-      let completedCount = [completed1, completed2, completed3, completed4].filter(Boolean).length;
-
-      if (completedCount === 0) progressFill.style.width = "0%";
-      if (completedCount === 1) progressFill.style.width = "25%";
-      if (completedCount === 2) progressFill.style.width = "50%";
-      if (completedCount === 3) progressFill.style.width = "75%";
-      if (completedCount === 4) progressFill.style.width = "75%";
+      if (!completed1) {
+        progressFill.style.width = "0%";
+        summaryStatus.textContent = "Start by selecting an apparel category.";
+      } else if (!completed2) {
+        progressFill.style.width = "25%";
+        summaryStatus.textContent = "Category complete. Select your quarter zip size.";
+      } else if (!completed3) {
+        progressFill.style.width = "50%";
+        summaryStatus.textContent = "Quarter zip complete. Choose your second item.";
+      } else if (!completed4) {
+        progressFill.style.width = "75%";
+        summaryStatus.textContent = "Apparel complete. Add your name to submit.";
+      } else {
+        progressFill.style.width = "75%";
+        summaryStatus.textContent = "All steps complete. Ready to submit.";
+      }
     }
 
     document.querySelectorAll(".category-card").forEach(card => {
       card.addEventListener("click", () => {
-        const selectedGender = card.dataset.gender;
+        document.querySelectorAll(".category-card").forEach(c => c.classList.remove("selected"));
+        card.classList.add("selected");
 
-        genderInput.value = selectedGender;
-        selectedGenderText.textContent = selectedGender + " Options";
-
-        categoryStep.classList.add("hidden");
-        orderSteps.classList.remove("hidden");
+        genderInput.value = card.dataset.gender;
 
         updateProgress();
 
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        setTimeout(() => {
+          showStep(2);
+        }, 250);
       });
+    });
+
+    quarterZipSize.addEventListener("change", () => {
+      updateProgress();
+
+      if (quarterZipSize.value) {
+        setTimeout(() => {
+          showStep(3);
+        }, 250);
+      }
     });
 
     document.querySelectorAll(".choice-card").forEach(card => {
       card.addEventListener("click", () => {
         document.querySelectorAll(".choice-card").forEach(c => c.classList.remove("selected"));
         card.classList.add("selected");
+
         secondItemInput.value = card.dataset.item;
         updateProgress();
+
+        if (secondItemInput.value && secondItemSize.value) {
+          setTimeout(() => {
+            showStep(4);
+          }, 250);
+        }
       });
     });
 
-    changeCategoryBtn.addEventListener("click", () => {
-      form.reset();
-      genderInput.value = "";
-      secondItemInput.value = "";
-      document.querySelectorAll(".choice-card").forEach(c => c.classList.remove("selected"));
-
-      categoryStep.classList.remove("hidden");
-      orderSteps.classList.add("hidden");
-      message.textContent = "";
-
+    secondItemSize.addEventListener("change", () => {
       updateProgress();
 
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (secondItemInput.value && secondItemSize.value) {
+        setTimeout(() => {
+          showStep(4);
+        }, 250);
+      }
     });
 
-    [firstName, lastName, quarterZipSize, secondItemSize].forEach(input => {
+    [firstName, lastName].forEach(input => {
       input.addEventListener("input", updateProgress);
       input.addEventListener("change", updateProgress);
+    });
+
+    document.querySelectorAll("[data-go]").forEach(button => {
+      button.addEventListener("click", () => {
+        showStep(Number(button.dataset.go));
+      });
     });
 
     form.addEventListener("submit", function () {
@@ -817,17 +1006,18 @@
         message.className = "success";
 
         form.reset();
+
         genderInput.value = "";
         secondItemInput.value = "";
-        document.querySelectorAll(".choice-card").forEach(c => c.classList.remove("selected"));
 
-        categoryStep.classList.remove("hidden");
-        orderSteps.classList.add("hidden");
+        document.querySelectorAll(".category-card").forEach(c => c.classList.remove("selected"));
+        document.querySelectorAll(".choice-card").forEach(c => c.classList.remove("selected"));
 
         submitBtn.disabled = false;
         submitBtn.textContent = "Submit Apparel Order";
 
         updateProgress();
+        showStep(1);
       }, 1200);
     });
 
