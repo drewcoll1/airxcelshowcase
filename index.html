@@ -1042,7 +1042,7 @@
                                 <div class="step-heading">
                                     <p class="eyebrow">Step 5</p>
                                     <h2>Submit Your Order</h2>
-                                    <p>You're almost done! Add your name below and click "Submit Apparel Order" in the Order Summary to complete your order.</p>
+                                    <p>You're almost done! Add your name below and click "Submit Apparel Order" in the Order Summary.</p>
                                 </div>
 
                                 <div class="grid">
@@ -1309,6 +1309,45 @@
             summarySecondItem.textContent = "";
         }
 
+        function updateSizeOptions() {
+    const isWomen = genderInput.value === "Women's";
+    const isPolo = secondItemInput.value === "Polo";
+
+    quarterZipSize.innerHTML = `
+        <option value="">Select Size</option>
+        <option>XS</option>
+        <option>S</option>
+        <option>M</option>
+        <option>L</option>
+        <option>XL</option>
+        <option>2XL</option>
+        ${!isWomen ? "<option>3XL</option>" : ""}
+    `;
+
+    let secondSizes = `
+        <option value="">Select Size</option>
+        <option>XS</option>
+        <option>S</option>
+        <option>M</option>
+        <option>L</option>
+        <option>XL</option>
+        <option>2XL</option>
+    `;
+
+    if (isPolo) {
+        if (!isWomen) {
+            secondSizes += `<option>3XL</option>`;
+        }
+    } else {
+        secondSizes += `
+            <option>3XL</option>
+            <option>4XL</option>
+        `;
+    }
+
+    secondItemSize.innerHTML = secondSizes;
+}
+
         function showStep(stepNumber) {
             document.querySelectorAll(".step-screen").forEach(screen => {
                 screen.classList.remove("active");
@@ -1500,8 +1539,11 @@
                 card.classList.add("selected");
 
                 genderInput.value = card.dataset.gender;
-                applyGenderImages(card.dataset.gender);
-                updateProgress();
+applyGenderImages(card.dataset.gender);
+quarterZipSize.value = "";
+secondItemSize.value = "";
+updateSizeOptions();
+updateProgress();
 
                 setTimeout(() => {
                     showStep(2);
@@ -1528,6 +1570,7 @@
                 card.classList.add("selected");
 
                 secondItemInput.value = card.dataset.item;
+                updateSizeOptions();
 
                 const selectedImages = apparelImages[genderInput.value];
 
