@@ -1309,14 +1309,14 @@
             summarySecondItem.textContent = "";
         }
 
-        function updateSizeOptions(updateQuarterZip = true) {
+    function updateSizeOptions(updateQuarterZip = true) {
     const isWomen = genderInput.value === "Women's";
     const isPolo = secondItemInput.value === "Polo";
 
+    // 1/4 Zip Sizes
     if (updateQuarterZip) {
         quarterZipSize.innerHTML = `
             <option value="">Select Size</option>
-            <option>XS</option>
             <option>S</option>
             <option>M</option>
             <option>L</option>
@@ -1326,9 +1326,9 @@
         `;
     }
 
+    // Polo Sizes
     let secondSizes = `
         <option value="">Select Size</option>
-        <option>XS</option>
         <option>S</option>
         <option>M</option>
         <option>L</option>
@@ -1337,11 +1337,23 @@
     `;
 
     if (isPolo) {
+
+        // Men's polo gets 3XL
         if (!isWomen) {
             secondSizes += `<option>3XL</option>`;
         }
+
     } else {
-        secondSizes += `
+
+        // Long sleeves get XS–4XL for everyone
+        secondSizes = `
+            <option value="">Select Size</option>
+            <option>XS</option>
+            <option>S</option>
+            <option>M</option>
+            <option>L</option>
+            <option>XL</option>
+            <option>2XL</option>
             <option>3XL</option>
             <option>4XL</option>
         `;
