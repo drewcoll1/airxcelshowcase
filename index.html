@@ -1309,20 +1309,22 @@
             summarySecondItem.textContent = "";
         }
 
-        function updateSizeOptions() {
+        function updateSizeOptions(updateQuarterZip = true) {
     const isWomen = genderInput.value === "Women's";
     const isPolo = secondItemInput.value === "Polo";
 
-    quarterZipSize.innerHTML = `
-        <option value="">Select Size</option>
-        <option>XS</option>
-        <option>S</option>
-        <option>M</option>
-        <option>L</option>
-        <option>XL</option>
-        <option>2XL</option>
-        ${!isWomen ? "<option>3XL</option>" : ""}
-    `;
+    if (updateQuarterZip) {
+        quarterZipSize.innerHTML = `
+            <option value="">Select Size</option>
+            <option>XS</option>
+            <option>S</option>
+            <option>M</option>
+            <option>L</option>
+            <option>XL</option>
+            <option>2XL</option>
+            ${!isWomen ? "<option>3XL</option>" : ""}
+        `;
+    }
 
     let secondSizes = `
         <option value="">Select Size</option>
@@ -1570,7 +1572,7 @@ updateProgress();
                 card.classList.add("selected");
 
                 secondItemInput.value = card.dataset.item;
-                updateSizeOptions();
+                updateSizeOptions(false);
 
                 const selectedImages = apparelImages[genderInput.value];
 
