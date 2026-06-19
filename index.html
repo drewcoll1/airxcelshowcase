@@ -1046,16 +1046,21 @@
                                 </div>
 
                                 <div class="grid">
-                                    <div class="field">
-                                        <label for="firstName">First Name</label>
-                                        <input type="text" id="firstName" name="firstName" required>
-                                    </div>
+    <div class="field">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" name="firstName" required>
+    </div>
 
-                                    <div class="field">
-                                        <label for="lastName">Last Name</label>
-                                        <input type="text" id="lastName" name="lastName" required>
-                                    </div>
-                                </div>
+    <div class="field">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" name="lastName" required>
+    </div>
+</div>
+
+<div class="field">
+    <label for="employeeEmail">Email Address</label>
+    <input type="email" id="employeeEmail" name="employeeEmail" required>
+</div>
                             </div>
 
                         </div>
@@ -1207,6 +1212,7 @@
 
         const firstName = document.getElementById("firstName");
         const lastName = document.getElementById("lastName");
+        const employeeEmail = document.getElementById("employeeEmail");
         const quarterZipSize = document.getElementById("quarterZipSize");
         const secondItemSize = document.getElementById("secondItemSize");
 
@@ -1382,15 +1388,16 @@
         }
 
         function isReadyToSubmit() {
-            return (
-                genderInput.value &&
-                quarterZipSize.value &&
-                secondItemInput.value &&
-                secondItemSize.value &&
-                firstName.value.trim() &&
-                lastName.value.trim()
-            );
-        }
+    return (
+        genderInput.value &&
+        quarterZipSize.value &&
+        secondItemInput.value &&
+        secondItemSize.value &&
+        firstName.value.trim() &&
+        lastName.value.trim() &&
+        employeeEmail.value.trim()
+    );
+}
 
         function updateSelectedSecondImage() {
             const selectedImages = apparelImages[genderInput.value];
@@ -1616,7 +1623,7 @@ updateProgress();
             }
         });
 
-        [firstName, lastName].forEach(input => {
+        [firstName, lastName, employeeEmail].forEach(input => {
             input.addEventListener("input", () => {
                 submittedComplete = false;
                 updateProgress();
